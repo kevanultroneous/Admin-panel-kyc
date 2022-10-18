@@ -32,13 +32,19 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Menu',
+    name: 'Users',
     to: '/',
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
-    name: 'Menu',
+    name: 'Reviews',
+    to: '/',
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Questions',
     to: '/',
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
   },
@@ -54,10 +60,10 @@ const _nav = [
   //   to: '/theme/typography',
   //   icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
   // },
-  {
-    component: CNavTitle,
-    name: 'Menu Heading',
-  },
+  // {
+  //   component: CNavTitle,
+  //   name: 'Menu Heading',
+  // },
   // {
   //   component: CNavGroup,
   //   name: 'Base',
