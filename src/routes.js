@@ -1,9 +1,10 @@
 import React from 'react'
+import Customers from './views/pages/customers/Customers'
+import ServiceProvider from './views/pages/serviceprovider/ServiceProvider'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
-const Users = React.lazy(() => import('./views/pages/users/Users'))
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
 const Breadcrumbs = React.lazy(() => import('./views/base/breadcrumbs/Breadcrumbs'))
@@ -53,7 +54,8 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
-  { path: '/users', name: 'Users', element: Users },
+  { path: '/customers', name: 'Customers', element: Customers },
+  { path: '/service-providers', name: 'ServiceProvider', element: ServiceProvider },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },

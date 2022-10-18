@@ -19,6 +19,8 @@ import {
   cilSettings,
   cilTask,
   cilUser,
+  cilAccountLogout,
+  cilTransfer,
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 
@@ -37,7 +39,6 @@ const AppHeaderDropdown = () => {
         <CAvatar src={avatar8} size="md" />
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
-        <CDropdownHeader className="bg-light fw-semibold py-2">Account</CDropdownHeader>
         {/* <CDropdownItem href="#">
             <CIcon icon={cilBell} className="me-2" />
             Updates
@@ -88,8 +89,12 @@ const AppHeaderDropdown = () => {
         </CDropdownItem>
         <CDropdownDivider /> */}
         <CDropdownItem onClick={logoutAction}>
-          <CIcon icon={cilLockLocked} className="me-2" />
+          <CIcon icon={cilAccountLogout} className="me-2" />
           Logout
+        </CDropdownItem>
+        <CDropdownItem onClick={logoutAction}>
+          <CIcon icon={cilTransfer} className="me-2" />
+          Change Password
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>
