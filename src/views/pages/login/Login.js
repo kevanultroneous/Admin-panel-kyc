@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import {
   CButton,
   CCard,
@@ -18,9 +18,6 @@ import {
   CModalHeader,
   CModalTitle,
   CRow,
-  CToast,
-  CToastBody,
-  CToastHeader,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
@@ -31,7 +28,7 @@ const Login = () => {
     if (localStorage.getItem("token")) {
       navigate('/dashboard')
     }
-  }, [])
+  })
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
   const loginAction = () => {

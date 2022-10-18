@@ -1,32 +1,9 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react/react-in-jsx-scope */
 import CIcon from '@coreui/icons-react'
-import { CAvatar, CButton, CFormInput, CFormSwitch, CInputGroup, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CProgress, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react'
-import WidgetsDropdown from 'src/views/widgets/WidgetsDropdown'
+import { CButton, CFormInput, CInputGroup, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react'
 import {
-    cibCcAmex,
-    cibCcApplePay,
-    cibCcMastercard,
-    cibCcPaypal,
-    cibCcStripe,
-    cibCcVisa,
-    cibGoogle,
-    cibFacebook,
-    cibLinkedin,
-    cifBr,
-    cifEs,
-    cifFr,
-    cifIn,
-    cifPl,
-    cifUs,
-    cibTwitter,
-    cilCloudDownload,
-    cilPeople,
-    cilUser,
-    cilUserFemale,
     cilTrash,
-    cilInfo,
-    cilSearch,
     cilContact
 } from '@coreui/icons'
 // import avatar1 from 'src/assets/images/avatars/1.jpg'

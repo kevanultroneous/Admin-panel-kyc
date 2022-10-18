@@ -13,27 +13,7 @@ import {
 import { CChartLine } from '@coreui/react-chartjs'
 import { getStyle, hexToRgba } from '@coreui/utils'
 import CIcon from '@coreui/icons-react'
-import {
-  cibCcAmex,
-  cibCcApplePay,
-  cibCcMastercard,
-  cibCcPaypal,
-  cibCcStripe,
-  cibCcVisa,
-  cibGoogle,
-  cibFacebook,
-  cibLinkedin,
-  cifBr,
-  cifEs,
-  cifFr,
-  cifIn,
-  cifPl,
-  cifUs,
-  cibTwitter,
-  cilCloudDownload,
-  cilUser,
-  cilUserFemale,
-} from '@coreui/icons'
+import { cilCloudDownload } from '@coreui/icons'
 
 // import avatar1 from 'src/assets/images/avatars/1.jpg'
 // import avatar2 from 'src/assets/images/avatars/2.jpg'
@@ -51,7 +31,7 @@ const Dashboard = () => {
     if (!localStorage.getItem('token')) {
       navigate('/login')
     }
-  }, [])
+  })
   const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
   const progressExample = [
     { title: 'Visits', value: '29.703 Users', percent: 40, color: 'success' },
