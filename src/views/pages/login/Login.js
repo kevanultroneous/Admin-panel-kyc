@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   CButton,
   CCard,
@@ -17,6 +17,13 @@ import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 
 const Login = () => {
+  const navigate = useNavigate()
+  const [userName, setUserName] = useState('')
+  const [password, setPassword] = useState('')
+  const loginAction = () => {
+    localStorage.setItem('token', '123')
+    navigate('/Dashboard')
+  }
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -32,21 +39,27 @@ const Login = () => {
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
-                      <CFormInput placeholder="Username" autoComplete="username" />
+                      <CFormInput
+                        value={userName}
+                        onChange={(e) => setUserName(e.target.value)}
+                        type="text"
+                        placeholder="username"
+                      />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupText>
                         <CIcon icon={cilLockLocked} />
                       </CInputGroupText>
                       <CFormInput
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         type="password"
                         placeholder="Password"
-                        autoComplete="current-password"
                       />
                     </CInputGroup>
                     <CRow>
                       <CCol xs={6}>
-                        <CButton color="primary" className="px-4">
+                        <CButton color="primary" className="px-4" onClick={loginAction}>
                           Login
                         </CButton>
                       </CCol>

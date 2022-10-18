@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import {
   CAvatar,
@@ -53,10 +53,16 @@ import avatar6 from 'src/assets/images/avatars/6.jpg'
 
 import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
+import { useNavigate } from 'react-router-dom'
 
 const Dashboard = () => {
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (!localStorage.getItem('token')) {
+      navigate('/login')
+    }
+  }, [])
   const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
-
   const progressExample = [
     { title: 'Visits', value: '29.703 Users', percent: 40, color: 'success' },
     { title: 'Unique', value: '24.093 Users', percent: 20, color: 'info' },
@@ -180,9 +186,9 @@ const Dashboard = () => {
 
   return (
     <>
-      {/* <WidgetsDropdown /> */}
-      {/* <CCard className="mb-4"> */}
-      {/* <CCardBody>
+      <WidgetsDropdown />
+      <CCard className="mb-4">
+        <CCardBody>
           <CRow>
             <CCol sm={5}>
               <h4 id="traffic" className="card-title mb-0">
@@ -292,8 +298,8 @@ const Dashboard = () => {
               },
             }}
           />
-        </CCardBody> */}
-      {/* <CCardFooter>
+        </CCardBody>
+        <CCardFooter>
           <CRow xs={{ cols: 1 }} md={{ cols: 5 }} className="text-center">
             {progressExample.map((item, index) => (
               <CCol className="mb-sm-2 mb-0" key={index}>
@@ -305,10 +311,10 @@ const Dashboard = () => {
               </CCol>
             ))}
           </CRow>
-        </CCardFooter> */}
-      {/* </CCard> */}
+        </CCardFooter>
+      </CCard>
 
-      {/* <WidgetsBrand withCharts /> */}
+      <WidgetsBrand withCharts />
 
       {/* <CRow>
         <CCol xs>
