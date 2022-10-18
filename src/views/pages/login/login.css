@@ -32,3 +32,22 @@
     border-color: #1746A2;
     box-shadow: none;
 }
+
+.linkbtn {
+    color: #1746A2;
+}
+
+.linkbtn:hover {
+    color: #1746A2;
+    box-shadow: none;
+}
+
+.linkbtn:focus {
+    color: #1746A2;
+    box-shadow: none !important;
+}
+
+.linkbtn:active {
+    color: #1746A2;
+    box-shadow: none !important;
+}

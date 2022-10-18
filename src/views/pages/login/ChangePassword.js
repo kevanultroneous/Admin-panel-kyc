@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
     CButton,
@@ -17,7 +17,11 @@ import './login.css'
 
 const ChangePassword = () => {
     const navigate = useNavigate()
-
+    useEffect(() => {
+        if (!localStorage.getItem('token')) {
+            navigate('/login')
+        }
+    })
     const [password, setPassword] = useState('')
     const [passwordNew, setPasswordNew] = useState('')
     const [passwordCopy, setPasswordCopy] = useState('')

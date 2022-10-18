@@ -75,8 +75,8 @@ const Login = () => {
                         <CFormInput
                           value={userName}
                           onChange={(e) => setUserName(e.target.value)}
-                          type="text"
-                          placeholder="username"
+                          type="email"
+                          placeholder="Email"
                           className='inputborder'
                         />
                       </CInputGroup>
@@ -95,8 +95,8 @@ const Login = () => {
                             Login
                           </CButton>
                         </CCol>
-                        <CCol xs={12} xl={7} md={7} lg={7} className="text-right">
-                          <CButton color="link" className="px-0" onClick={() => setVisible(true)}>
+                        <CCol xs={12} xl={7} md={7} lg={7} className="text-end">
+                          <CButton color="link" className="px-0 linkbtn" onClick={() => setVisible(true)}>
                             Forgot password?
                           </CButton>
                         </CCol>
