@@ -11,11 +11,9 @@ import {
     CForm,
     CFormInput,
     CInputGroup,
-    CInputGroupText,
     CRow,
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { cilLockLocked } from '@coreui/icons'
+import './login.css'
 
 const ChangePassword = () => {
     const navigate = useNavigate()
@@ -31,48 +29,42 @@ const ChangePassword = () => {
         <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
             <CContainer>
                 <CRow className="justify-content-center">
-                    <CCol md={8}>
+                    <CCol md={5}>
                         <CCardGroup>
-                            <CCard className="p-4">
+                            <CCard className="p-4 cardstyle">
                                 <CCardBody>
                                     <CForm>
                                         <h2>Change Password</h2>
                                         <CInputGroup className="mb-4 mt-4">
-                                            <CInputGroupText>
-                                                <CIcon icon={cilLockLocked} />
-                                            </CInputGroupText>
                                             <CFormInput
                                                 value={password}
                                                 onChange={(e) => setPassword(e.target.value)}
                                                 type="password"
                                                 placeholder="Enter old password"
+                                                className='inputborder'
                                             />
                                         </CInputGroup>
                                         <CInputGroup className="mb-4">
-                                            <CInputGroupText>
-                                                <CIcon icon={cilLockLocked} />
-                                            </CInputGroupText>
                                             <CFormInput
                                                 value={passwordNew}
                                                 onChange={(e) => setPasswordNew(e.target.value)}
                                                 type="password"
                                                 placeholder="Enter new password"
+                                                className='inputborder'
                                             />
                                         </CInputGroup>
                                         <CInputGroup className="mb-4">
-                                            <CInputGroupText>
-                                                <CIcon icon={cilLockLocked} />
-                                            </CInputGroupText>
                                             <CFormInput
                                                 value={passwordCopy}
                                                 onChange={(e) => setPasswordCopy(e.target.value)}
                                                 type="password"
                                                 placeholder="Enter confirm password"
+                                                className='inputborder'
                                             />
                                         </CInputGroup>
                                         <CRow>
                                             <CCol xs={6}>
-                                                <CButton color="primary" className="px-4" onClick={saveAction}>
+                                                <CButton color="primary" className="px-4 loginbtn" onClick={saveAction}>
                                                     Save
                                                 </CButton>
                                             </CCol>

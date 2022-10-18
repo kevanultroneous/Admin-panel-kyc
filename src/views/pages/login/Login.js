@@ -11,17 +11,13 @@ import {
   CForm,
   CFormInput,
   CInputGroup,
-  CInputGroupText,
   CModal,
   CModalBody,
-  CModalFooter,
   CModalHeader,
   CModalTitle,
   CRow,
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser } from '@coreui/icons'
-
+import './login.css'
 const Login = () => {
   const navigate = useNavigate()
   useEffect(() => {
@@ -49,65 +45,68 @@ const Login = () => {
           <CModalHeader>
             <CModalTitle>Forget Password</CModalTitle>
           </CModalHeader>
-          <CModalBody>
-            <CFormInput
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type="email"
-              placeholder="Email"
-            />
+          <CModalBody className='p-4'>
+            <CRow>
+              <CCol md={9} >
+                <CFormInput
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="email"
+                  placeholder="Email"
+                  className='inputborder'
+                />
+              </CCol>
+              <CCol md={3} >
+                <CButton color="primary" className='loginbtn'>Submit</CButton>
+              </CCol>
+            </CRow>
           </CModalBody>
-          <CModalFooter>
-            <CButton color="primary">Submit</CButton>
-          </CModalFooter>
         </CModal>
         <CContainer>
           <CRow className="justify-content-center">
-            <CCol md={8}>
-              <CCardGroup>
-                <CCard className="p-4">
+            <CCol md={5} >
+              <CCardGroup className=''>
+                <CCard className="p-4 cardstyle">
                   <CCardBody>
                     <CForm>
                       <h1>Login</h1>
                       <p className="text-medium-emphasis">Sign In to your account</p>
                       <CInputGroup className="mb-3">
-                        <CInputGroupText>
-                          <CIcon icon={cilUser} />
-                        </CInputGroupText>
+
                         <CFormInput
                           value={userName}
                           onChange={(e) => setUserName(e.target.value)}
                           type="text"
                           placeholder="username"
+                          className='inputborder'
                         />
                       </CInputGroup>
                       <CInputGroup className="mb-4">
-                        <CInputGroupText>
-                          <CIcon icon={cilLockLocked} />
-                        </CInputGroupText>
+
                         <CFormInput
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           type="password"
                           placeholder="Password"
+                          className='inputborder'
                         />
                       </CInputGroup>
-                      <CRow>
-                        <CCol xs={6}>
-                          <CButton color="primary" className="px-4" onClick={loginAction}>
+                      <CRow className='mt-4'>
+                        <CCol xs={12} xl={5} md={5} lg={5}>
+                          <CButton color="primary" className="px-4 loginbtn" onClick={loginAction} type='button'>
                             Login
                           </CButton>
                         </CCol>
-                        <CCol xs={6} className="text-right">
+                        <CCol xs={12} xl={7} md={7} lg={7} className="text-right">
                           <CButton color="link" className="px-0" onClick={() => setVisible(true)}>
                             Forgot password?
                           </CButton>
                         </CCol>
                       </CRow>
-                      {
+                      {/* {
                         toastview &&
                         <b style={{ color: 'red' }}>username or password wrong !</b>
-                      }
+                      } */}
                     </CForm>
                   </CCardBody>
                 </CCard>
