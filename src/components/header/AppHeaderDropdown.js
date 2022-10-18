@@ -33,6 +33,9 @@ const AppHeaderDropdown = () => {
     localStorage.removeItem('token')
     navigate('/login')
   }
+  const passwordChangeAction = () => {
+    navigate('/change-password')
+  }
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
@@ -92,7 +95,7 @@ const AppHeaderDropdown = () => {
           <CIcon icon={cilAccountLogout} className="me-2" />
           Logout
         </CDropdownItem>
-        <CDropdownItem onClick={logoutAction}>
+        <CDropdownItem onClick={passwordChangeAction}>
           <CIcon icon={cilTransfer} className="me-2" />
           Change Password
         </CDropdownItem>

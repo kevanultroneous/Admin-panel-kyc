@@ -1,5 +1,6 @@
 import React from 'react'
 import Customers from './views/pages/customers/Customers'
+import ChangePassword from './views/pages/login/ChangePassword'
 import ServiceProvider from './views/pages/serviceprovider/ServiceProvider'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
@@ -56,6 +57,7 @@ const routes = [
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/customers', name: 'Customers', element: Customers },
   { path: '/service-providers', name: 'ServiceProvider', element: ServiceProvider },
+  { path: '/change-password', name: 'ChangePassword', element: ChangePassword },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
