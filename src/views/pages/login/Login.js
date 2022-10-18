@@ -72,7 +72,6 @@ const Login = () => {
                       <h1>Login</h1>
                       <p className="text-medium-emphasis">Sign In to your account</p>
                       <CInputGroup className="mb-3">
-
                         <CFormInput
                           value={userName}
                           onChange={(e) => setUserName(e.target.value)}
@@ -82,7 +81,6 @@ const Login = () => {
                         />
                       </CInputGroup>
                       <CInputGroup className="mb-4">
-
                         <CFormInput
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
