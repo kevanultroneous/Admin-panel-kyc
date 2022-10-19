@@ -2,7 +2,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { cilSearch } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
-import { CButton, CFormInput, CFormSwitch, CInputGroup, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CSpinner, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react'
+import { CButton, CFormInput, CFormSwitch, CInputGroup, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react'
 import { useEffect, useState } from 'react'
 import { getAllServiceProvider } from 'src/api/api'
 import { serviceProviderField } from '../customers/dummyList'
