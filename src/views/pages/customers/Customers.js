@@ -6,18 +6,29 @@ import { CButton, CCol, CFormInput, CInputGroup, CRow, CSpinner, CTable, CTableB
 
 import {
     cilTrash,
-    cilContact
+    cilContact,
+    cilSearch
 } from '@coreui/icons'
 
 import { useEffect, useState } from 'react'
 import { getAllCustomer } from 'src/api/api'
 import AlertBox from './AlertBox'
 import ViewModel from './ViewModel'
+import { customerField, viewCustomerField } from './dummyList'
+import { NoData, SpinnerView } from './Nodata'
+import toast, { Toaster } from 'react-hot-toast'
 
 export default function Customers() {
 
     const [tableData, setTableData] = useState([])
     const [loader, setLoader] = useState(false)
+    const [visible, setVisible] = useState(false)
+    const [visibleView, setVisibleView] = useState(false)
+    const [currentCustomer, setCurrentCustomer] = useState({})
+    const [currentReview, setCurrentReview] = useState(null)
+    const [viewVisible, setViewVisible] = useState(false)
+    const [updatingReview, setUpdatingReview] = useState("")
+
     const getMyCustomer = () => {
         setLoader(true)
         getAllCustomer()
@@ -34,33 +45,32 @@ export default function Customers() {
         getMyCustomer()
     }, [])
 
-    const [visible, setVisible] = useState(false)
-    const [visibleView, setVisibleView] = useState(false)
-    const [currentCustomer, setCurrentCustomer] = useState({})
-    const [currentReview, setCurrentReview] = useState(null)
-    const [viewVisible, setViewVisible] = useState(false)
-    const [updatingReview, setUpdatingReview] = useState("")
+    const customerDetailHide = () => {
+        setViewVisible(false)
+        setUpdatingReview("")
+        setCurrentReview(null)
+        setVisibleView(false)
+    }
+
     return (
-        <>
+        <div>
+            {/* Alert box and View data model */}
+            <Toaster
+                position="top-right"
+                reverseOrder={false}
+            />
             <AlertBox visible={visible} onClose={() => setVisible(false)} onNo={() => setVisible(false)} onYes={() => null} />
             <ViewModel
                 size={2}
-                onClose={() => {
-                    setUpdatingReview("")
-                    setCurrentReview(null)
-                    setVisibleView(false)
-                }}
+                onClose={() => customerDetailHide()}
                 visibleView={visibleView}
                 title={"Customer Details"}
                 body={
-                    <>
+                    <div>
                         <CTable align="middle" className="mb-0 border" hover responsive>
                             <CTableHead color="light">
                                 <CTableRow>
-                                    <CTableHeaderCell>Name</CTableHeaderCell>
-                                    <CTableHeaderCell>Review</CTableHeaderCell>
-                                    <CTableHeaderCell>Ratings</CTableHeaderCell>
-                                    <CTableHeaderCell>Overall Ratings</CTableHeaderCell>
+                                    {viewCustomerField.map((v, i) => <CTableHeaderCell key={i}>{v}</CTableHeaderCell>)}
                                 </CTableRow>
                             </CTableHead>
                             <CTableBody>
@@ -96,7 +106,7 @@ export default function Customers() {
                             </CTableBody>
                         </CTable>
                         {
-                            currentReview != null ?
+                            currentReview != null && viewVisible === true ?
                                 <CRow className='mt-5'>
                                     <CCol xs={12} md={12} lg={12} xl={12}>
                                         <textarea rows={5} value={updatingReview} onChange={(e) => setUpdatingReview(e.target.value)} style={{ width: "100%" }}>
@@ -115,7 +125,7 @@ export default function Customers() {
                                     </CCol>
                                 </CRow> : null
                         }
-                    </>
+                    </div>
                 }
                 footer={
                     <CButton color="danger" onClick={() => setVisibleView(false)}>
@@ -123,29 +133,25 @@ export default function Customers() {
                     </CButton>
                 }
             />
+
+            {/* Search bar */}
             <CInputGroup className="mb-3">
                 <CFormInput placeholder="Search by Name or Email id or Phone number" aria-label="Name or Email id or Phone number" aria-describedby="button-addon2" />
+                <CButton type="button" color="info" variant="outline" id="button-addon2">
+                    <CIcon icon={cilSearch} />
+                </CButton>
             </CInputGroup>
+
+            {/* Data table */}
             <CTable align="middle" className="mb-0 border" hover responsive>
                 <CTableHead color="light">
                     <CTableRow>
-                        <CTableHeaderCell>Id</CTableHeaderCell>
-                        <CTableHeaderCell>Customer Name</CTableHeaderCell>
-                        <CTableHeaderCell>Email id</CTableHeaderCell>
-                        <CTableHeaderCell>Phone number</CTableHeaderCell>
-                        <CTableHeaderCell>Added By(service provider)</CTableHeaderCell>
-                        <CTableHeaderCell>Action</CTableHeaderCell>
+                        {customerField.map((v, i) => <CTableHeaderCell key={i}>{v}</CTableHeaderCell>)}
                     </CTableRow>
                 </CTableHead>
                 <CTableBody>
                     {
-                        loader ?
-                            <CTableRow>
-                                <CTableDataCell colSpan={6} className="text-center">
-                                    <CSpinner />
-                                </CTableDataCell>
-                            </CTableRow>
-                            :
+                        loader ? <SpinnerView /> :
                             tableData.length > 0 ?
                                 tableData?.map((item, index) => (
                                     <CTableRow v-for="item in tableItems" key={index}>
@@ -177,14 +183,10 @@ export default function Customers() {
                                         </CTableDataCell>
                                     </CTableRow>
                                 ))
-                                : <CTableRow>
-                                    <CTableDataCell colSpan={6} className="text-center">
-                                        <h3>No data</h3>
-                                    </CTableDataCell>
-                                </CTableRow>
+                                : <NoData />
                     }
                 </CTableBody>
             </CTable>
-        </>
+        </div>
     )
 }

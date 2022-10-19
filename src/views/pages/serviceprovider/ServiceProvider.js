@@ -5,6 +5,8 @@ import CIcon from '@coreui/icons-react'
 import { CButton, CFormInput, CFormSwitch, CInputGroup, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CSpinner, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react'
 import { useEffect, useState } from 'react'
 import { getAllServiceProvider } from 'src/api/api'
+import { serviceProviderField } from '../customers/dummyList'
+import { NoData, SpinnerView } from '../customers/Nodata'
 export default function ServiceProvider() {
 
     const [tableData, setTableData] = useState([])
@@ -30,33 +32,7 @@ export default function ServiceProvider() {
 
     return (
         <>
-            <CModal alignment="center" visible={visible} onClose={() => setVisible(false)}>
-                <CModalHeader>
-                    <CModalTitle>Remove User</CModalTitle>
-                </CModalHeader>
-                <CModalBody>
-                    Are you sure to remove this user ?
-                </CModalBody>
-                <CModalFooter>
-                    <CButton color="secondary" onClick={() => setVisible(false)}>
-                        No
-                    </CButton>
-                    <CButton color="primary">Yes</CButton>
-                </CModalFooter>
-            </CModal>
-            <CModal alignment="center" visible={visibleView} onClose={() => setVisibleView(false)}>
-                <CModalHeader>
-                    <CModalTitle>User Details</CModalTitle>
-                </CModalHeader>
-                <CModalBody>
-                    User detail
-                </CModalBody>
-                <CModalFooter>
-                    <CButton color="secondary" onClick={() => setVisibleView(false)}>
-                        close
-                    </CButton>
-                </CModalFooter>
-            </CModal>
+
             <CInputGroup className="mb-3">
                 <CFormInput placeholder="Search by Name or Email id or Phone number" aria-label="Name or Email id or Phone number" aria-describedby="button-addon2" />
                 <CButton type="button" color="info" variant="outline" id="button-addon2">
@@ -66,21 +42,13 @@ export default function ServiceProvider() {
             <CTable align="middle" className="mb-0 border" hover responsive>
                 <CTableHead color="light">
                     <CTableRow>
-                        <CTableHeaderCell>Id</CTableHeaderCell>
-                        <CTableHeaderCell>Name</CTableHeaderCell>
-                        <CTableHeaderCell>Email id</CTableHeaderCell>
-                        <CTableHeaderCell>Phone number</CTableHeaderCell>
-                        <CTableHeaderCell>Action (Block)</CTableHeaderCell>
+                        {serviceProviderField.map((v, i) => <CTableHeaderCell key={i}>{v}</CTableHeaderCell>)}
                     </CTableRow>
                 </CTableHead>
                 <CTableBody>
                     {
                         loader ?
-                            <CTableRow>
-                                <CTableDataCell colSpan={6} className="text-center">
-                                    <CSpinner />
-                                </CTableDataCell>
-                            </CTableRow>
+                            <SpinnerView />
                             :
                             tableData.length > 0 ?
                                 tableData?.map((item, index) => (
@@ -103,11 +71,7 @@ export default function ServiceProvider() {
 
                                     </CTableRow>
                                 )) :
-                                <CTableRow>
-                                    <CTableDataCell colSpan={6} className="text-center">
-                                        <h3>No data</h3>
-                                    </CTableDataCell>
-                                </CTableRow>
+                                <NoData />
                     }
                 </CTableBody>
             </CTable>
