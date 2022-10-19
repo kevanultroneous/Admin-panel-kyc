@@ -2,7 +2,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import CIcon from '@coreui/icons-react'
 
-import { CButton, CCol, CFormInput, CInputGroup, CRow, CSpinner, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react'
+import { CButton, CCol, CFormInput, CInputGroup, CRow, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react'
 
 import {
     cilTrash,
@@ -16,7 +16,7 @@ import AlertBox from './AlertBox'
 import ViewModel from './ViewModel'
 import { customerField, viewCustomerField } from './dummyList'
 import { NoData, SpinnerView } from './Nodata'
-import toast, { Toaster } from 'react-hot-toast'
+import { Toaster } from 'react-hot-toast'
 
 export default function Customers() {
 
