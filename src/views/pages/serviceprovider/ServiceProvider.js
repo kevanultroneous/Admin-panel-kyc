@@ -27,9 +27,6 @@ export default function ServiceProvider() {
         getMySP()
     }, [])
 
-    const [visible, setVisible] = useState(false)
-    const [visibleView, setVisibleView] = useState(false)
-
     return (
         <>
 
