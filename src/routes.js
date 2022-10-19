@@ -40,7 +40,7 @@ const ServiceProvider = React.lazy(() => import('./views/pages/serviceprovider/S
 // const Charts = React.lazy(() => import('./views/charts/Charts'))
 
 // Icons
-// const CoreUIIcons = React.lazy(() => import('./views/icons/coreui-icons/CoreUIIcons'))
+const CoreUIIcons = React.lazy(() => import('./views/icons/coreui-icons/CoreUIIcons'))
 // const Flags = React.lazy(() => import('./views/icons/flags/Flags'))
 // const Brands = React.lazy(() => import('./views/icons/brands/Brands'))
 
@@ -90,7 +90,7 @@ const routes = [
   // { path: '/forms/floating-labels', name: 'Floating Labels', element: FloatingLabels },
   // { path: '/forms/layout', name: 'Layout', element: Layout },
   // { path: '/forms/validation', name: 'Validation', element: Validation },
-  // { path: '/icons', exact: true, name: 'Icons', element: CoreUIIcons },
+  { path: '/icons', exact: true, name: 'Icons', element: CoreUIIcons },
   // { path: '/icons/coreui-icons', name: 'CoreUI Icons', element: CoreUIIcons },
   // { path: '/icons/flags', name: 'Flags', element: Flags },
   // { path: '/icons/brands', name: 'Brands', element: Brands },
