@@ -12,42 +12,14 @@ import {
 // import avatar4 from 'src/assets/images/avatars/4.jpg'
 // import avatar5 from 'src/assets/images/avatars/5.jpg'
 import avatar6 from 'src/assets/images/avatars/user.png'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { getAllCustomer } from 'src/api/api'
 export default function Customers() {
-    const tableExample = [
-        {
-            avatar: { src: avatar6, status: 'success' },
-            user: {
-                name: 'Yiorgos Avraamu',
-                email: 'Yiorgos@gmail.com',
-                contact: '8989898990'
-            },
-        },
-        {
-            avatar: { src: avatar6, status: 'success' },
-            user: {
-                name: 'Yiorgos Avraamu',
-                email: 'Yiorgos@gmail.com',
-                contact: '8989898990'
-            },
-        },
-        {
-            avatar: { src: avatar6, status: 'success' },
-            user: {
-                name: 'Yiorgos Avraamu',
-                email: 'Yiorgos@gmail.com',
-                contact: '8989898990'
-            },
-        },
-        {
-            avatar: { src: avatar6, status: 'success' },
-            user: {
-                name: 'Yiorgos Avraamu',
-                email: 'Yiorgos@gmail.com',
-                contact: '8989898990'
-            },
-        },
-    ]
+    const [tableData, setTableData] = useState([])
+    const getMyCustomer = () => getAllCustomer().then((r) => setTableData(r.data.data)).catch((e) => console.log(e))
+    useEffect(() => {
+        getMyCustomer()
+    }, [])
     const [visible, setVisible] = useState(false)
     const [visibleView, setVisibleView] = useState(false)
 
@@ -92,10 +64,6 @@ export default function Customers() {
             </CModal>
             <CInputGroup className="mb-3">
                 <CFormInput placeholder="Search by Name or Email id or Phone number" aria-label="Name or Email id or Phone number" aria-describedby="button-addon2" />
-
-                {/* <CButton type="button" color="info" variant="outline" id="button-addon2">
-                    <CIcon icon={cilSearch} />
-                </CButton> */}
             </CInputGroup>
             <CTable align="middle" className="mb-0 border" hover responsive>
                 <CTableHead color="light">
@@ -109,22 +77,22 @@ export default function Customers() {
                     </CTableRow>
                 </CTableHead>
                 <CTableBody>
-                    {tableExample.map((item, index) => (
+                    {tableData?.map((item, index) => (
                         <CTableRow v-for="item in tableItems" key={index}>
                             <CTableDataCell>
                                 <div>{index + 1}</div>
                             </CTableDataCell>
                             <CTableDataCell>
-                                <div>{item.user.name}</div>
+                                <div>{item.name}</div>
                             </CTableDataCell>
                             <CTableDataCell>
-                                <div>{item.user.email}</div>
+                                <div>{item.email}</div>
                             </CTableDataCell>
                             <CTableDataCell>
-                                <div>{item.user.contact}</div>
+                                <div>{item.contact}</div>
                             </CTableDataCell>
                             <CTableDataCell>
-                                <div>{item.user.email}</div>
+                                <div>{item.email}</div>
                             </CTableDataCell>
                             <CTableDataCell>
                                 <CButton color="info" variant="ghost" onClick={() => setVisibleView(true)}>

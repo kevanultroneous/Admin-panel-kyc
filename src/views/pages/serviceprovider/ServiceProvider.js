@@ -1,38 +1,14 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react/react-in-jsx-scope */
 import { CButton, CFormInput, CFormSwitch, CInputGroup, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { getAllServiceProvider } from 'src/api/api'
 export default function ServiceProvider() {
-    const tableExample = [
-        {
-            user: {
-                name: 'Pingpong',
-                email: 'Pingpong@gmail.com',
-                contact: '7777777777'
-            },
-        },
-        {
-            user: {
-                name: 'Pingpong',
-                email: 'Pingpong@gmail.com',
-                contact: '7777777777'
-            },
-        },
-        {
-            user: {
-                name: 'Pingpong',
-                email: 'Pingpong@gmail.com',
-                contact: '7777777777'
-            },
-        },
-        {
-            user: {
-                name: 'Pingpong',
-                email: 'Pingpong@gmail.com',
-                contact: '7777777777'
-            },
-        },
-    ]
+    const [tableData, setTableData] = useState([])
+    const getMySP = () => getAllServiceProvider().then((r) => setTableData(r.data.data)).catch((e) => console.log(e))
+    useEffect(() => {
+        getMySP()
+    }, [])
     const [visible, setVisible] = useState(false)
     const [visibleView, setVisibleView] = useState(false)
 
@@ -82,19 +58,19 @@ export default function ServiceProvider() {
                     </CTableRow>
                 </CTableHead>
                 <CTableBody>
-                    {tableExample.map((item, index) => (
+                    {tableData?.map((item, index) => (
                         <CTableRow v-for="item in tableItems" key={index}>
                             <CTableDataCell>
                                 <div>{index + 1}</div>
                             </CTableDataCell>
                             <CTableDataCell>
-                                <div>{item.user.name}</div>
+                                <div>{item.name}</div>
                             </CTableDataCell>
                             <CTableDataCell>
-                                <div>{item.user.email}</div>
+                                <div>{item.email}</div>
                             </CTableDataCell>
                             <CTableDataCell>
-                                <div>{item.user.contact}</div>
+                                <div>{item.contact}</div>
                             </CTableDataCell>
                             <CTableDataCell>
                                 <CFormSwitch id={`switchblock${index}`} type='checkbox' />
