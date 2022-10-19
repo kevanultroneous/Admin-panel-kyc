@@ -1,21 +1,19 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react/react-in-jsx-scope */
 import CIcon from '@coreui/icons-react'
-import { CButton, CCol, CFormInput, CInputGroup, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow, CSpinner, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react'
+
+import { CButton, CCol, CFormInput, CInputGroup, CRow, CSpinner, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react'
+
 import {
     cilTrash,
     cilContact
 } from '@coreui/icons'
-// import avatar1 from 'src/assets/images/avatars/1.jpg'
-// import avatar2 from 'src/assets/images/avatars/2.jpg'
-// import avatar3 from 'src/assets/images/avatars/3.jpg'
-// import avatar4 from 'src/assets/images/avatars/4.jpg'
-// import avatar5 from 'src/assets/images/avatars/5.jpg'
-// import avatar6 from 'src/assets/images/avatars/user.png'
+
 import { useEffect, useState } from 'react'
 import { getAllCustomer } from 'src/api/api'
 import AlertBox from './AlertBox'
 import ViewModel from './ViewModel'
+
 export default function Customers() {
 
     const [tableData, setTableData] = useState([])
@@ -39,53 +37,85 @@ export default function Customers() {
     const [visible, setVisible] = useState(false)
     const [visibleView, setVisibleView] = useState(false)
     const [currentCustomer, setCurrentCustomer] = useState({})
-
+    const [currentReview, setCurrentReview] = useState(null)
+    const [viewVisible, setViewVisible] = useState(false)
+    const [updatingReview, setUpdatingReview] = useState("")
     return (
         <>
             <AlertBox visible={visible} onClose={() => setVisible(false)} onNo={() => setVisible(false)} onYes={() => null} />
             <ViewModel
                 size={2}
-                onClose={() => setVisibleView(false)}
+                onClose={() => {
+                    setUpdatingReview("")
+                    setCurrentReview(null)
+                    setVisibleView(false)
+                }}
                 visibleView={visibleView}
                 title={"Customer Details"}
                 body={
-                    <CTable align="middle" className="mb-0 border" hover responsive>
-                        <CTableHead color="light">
-                            <CTableRow>
-                                <CTableHeaderCell>Name</CTableHeaderCell>
-                                <CTableHeaderCell>Review</CTableHeaderCell>
-                                <CTableHeaderCell>Ratings</CTableHeaderCell>
-                                <CTableHeaderCell>Overall Ratings</CTableHeaderCell>
-                            </CTableRow>
-                        </CTableHead>
-                        <CTableBody>
-                            <CTableRow>
-                                <CTableDataCell>
-                                    <div>{currentCustomer.name}</div>
-                                </CTableDataCell>
-                                <CTableDataCell>
-                                    <div>{currentCustomer?.reviews?.map((v, i) =>
-                                        <CRow key={i}>
-                                            <CCol xl={8}>
-                                                <div key={i}>{v}</div>
-                                            </CCol>
-                                            <CCol xl={4}>
-                                                <div onClick={() => setVisible(true)} className='viewbtn'>
-                                                    view
-                                                </div>
-                                            </CCol>
-                                        </CRow>
-                                    )}</div>
-                                </CTableDataCell>
-                                <CTableDataCell className='text-center'>
-                                    <div>{currentCustomer.starsRating}</div>
-                                </CTableDataCell>
-                                <CTableDataCell className='text-center'>
-                                    <div>{currentCustomer.overallRating}</div>
-                                </CTableDataCell>
-                            </CTableRow>
-                        </CTableBody>
-                    </CTable>
+                    <>
+                        <CTable align="middle" className="mb-0 border" hover responsive>
+                            <CTableHead color="light">
+                                <CTableRow>
+                                    <CTableHeaderCell>Name</CTableHeaderCell>
+                                    <CTableHeaderCell>Review</CTableHeaderCell>
+                                    <CTableHeaderCell>Ratings</CTableHeaderCell>
+                                    <CTableHeaderCell>Overall Ratings</CTableHeaderCell>
+                                </CTableRow>
+                            </CTableHead>
+                            <CTableBody>
+                                <CTableRow>
+                                    <CTableDataCell>
+                                        <div>{currentCustomer.name}</div>
+                                    </CTableDataCell>
+                                    <CTableDataCell>
+                                        <div>{currentCustomer?.reviews?.map((v, i) =>
+                                            <CRow key={i}>
+                                                <CCol xl={8}>
+                                                    <div key={i}>{v}</div>
+                                                </CCol>
+                                                <CCol xl={4}>
+                                                    <div onClick={() => {
+                                                        setUpdatingReview(v)
+                                                        setCurrentReview({ userid: v, review: v })
+                                                        setViewVisible(true)
+                                                    }} className='viewbtn'>
+                                                        view
+                                                    </div>
+                                                </CCol>
+                                            </CRow>
+                                        )}</div>
+                                    </CTableDataCell>
+                                    <CTableDataCell className='text-center'>
+                                        <div>{currentCustomer.starsRating}</div>
+                                    </CTableDataCell>
+                                    <CTableDataCell className='text-center'>
+                                        <div>{currentCustomer.overallRating}</div>
+                                    </CTableDataCell>
+                                </CTableRow>
+                            </CTableBody>
+                        </CTable>
+                        {
+                            currentReview != null ?
+                                <CRow className='mt-5'>
+                                    <CCol xs={12} md={12} lg={12} xl={12}>
+                                        <textarea rows={5} value={updatingReview} onChange={(e) => setUpdatingReview(e.target.value)} style={{ width: "100%" }}>
+                                        </textarea>
+                                    </CCol>
+                                    <CCol xs={12} md={12} lg={12} xl={12}>
+                                        <CButton color="danger" variant="ghost">
+                                            Delete Review
+                                        </CButton>
+                                        <CButton color="info" variant="ghost" onClick={() => alert(updatingReview)}>
+                                            Update Review
+                                        </CButton>
+                                        <CButton color="primary" variant="ghost" onClick={() => setCurrentReview(null)}>
+                                            Close Review
+                                        </CButton>
+                                    </CCol>
+                                </CRow> : null
+                        }
+                    </>
                 }
                 footer={
                     <CButton color="danger" onClick={() => setVisibleView(false)}>
@@ -93,7 +123,6 @@ export default function Customers() {
                     </CButton>
                 }
             />
-
             <CInputGroup className="mb-3">
                 <CFormInput placeholder="Search by Name or Email id or Phone number" aria-label="Name or Email id or Phone number" aria-describedby="button-addon2" />
             </CInputGroup>
@@ -133,7 +162,7 @@ export default function Customers() {
                                             <div>{item.contact}</div>
                                         </CTableDataCell>
                                         <CTableDataCell>
-                                            <div>{item.email}</div>
+                                            <div>{"added by"}</div>
                                         </CTableDataCell>
                                         <CTableDataCell>
                                             <CButton color="info" variant="ghost" onClick={() => {
