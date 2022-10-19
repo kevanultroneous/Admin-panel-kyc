@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import validator from 'validator'
 import {
   CButton,
   CCard,
@@ -18,6 +19,8 @@ import {
   CRow,
 } from '@coreui/react'
 import './login.css'
+import toast, { Toaster } from 'react-hot-toast'
+import { ForgetPassword, LoginApi } from 'src/api/api'
 const Login = () => {
   const navigate = useNavigate()
   useEffect(() => {
@@ -25,22 +28,59 @@ const Login = () => {
       navigate('/dashboard')
     }
   })
+
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
+  const [femail, setfemail] = useState("")
+
   const loginAction = () => {
-    if (!(userName === 'admin' && password === 'admin')) {
-      setToastView(true)
+    if (!validator.isEmail(userName)) {
+      toast.error('Enter valid email !')
+    }
+    else if (password.length < 9 || password == null || password === "") {
+      toast.error('Enter valid password !')
     } else {
-      localStorage.setItem('token', '123')
-      setToastView(false)
-      navigate('/Dashboard')
+      LoginApi({ email: userName, password: password }).then((r) => {
+        if (r.data.data != null && (r.data.token !== null || r.data.token !== "")) {
+          toast.success("Login successfully !")
+          localStorage.setItem('token', r.data.token)
+          navigate('/Dashboard')
+        }
+      }).catch((e) => {
+        if (e.response) {
+          toast.error(e.response.data.message)
+        }
+      })
     }
   }
   const [visible, setVisible] = useState(false)
   const [toastview, setToastView] = useState(false)
+  const [otp, setOtp] = useState(false)
+  const [otpInp, setOtpInp] = useState("")
+  const [ftoken, setFtoken] = useState("")
+  const fsubmitHandler = () => {
+    if (!validator.isEmail(femail)) {
+      toast.error('Enter valid email !')
+    } else {
+      ForgetPassword({ email: femail }).then((r) => {
+        if (r.data.data != null && (r.data.token !== null || r.data.token !== "")) {
+          setOtp(true)
+          toast.success("OTP send successfully , Check your email !")
+        }
+      }).catch((e) => {
+        if (e.response) {
+          toast.error(e.response.data.message)
+        }
+      })
+    }
+  }
 
   return (
     <>
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+      />
       <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
         <CModal alignment="center" visible={visible} onClose={() => setVisible(false)}>
           <CModalHeader>
@@ -50,15 +90,15 @@ const Login = () => {
             <CRow>
               <CCol md={9} >
                 <CFormInput
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={femail}
+                  onChange={(e) => setfemail(e.target.value)}
                   type="email"
                   placeholder="Email"
                   className='inputborder'
                 />
               </CCol>
               <CCol md={3} >
-                <CButton color="primary" className='loginbtn'>Submit</CButton>
+                <CButton color="primary" className='loginbtn' onClick={fsubmitHandler}>Submit</CButton>
               </CCol>
             </CRow>
           </CModalBody>
@@ -102,10 +142,6 @@ const Login = () => {
                           </CButton>
                         </CCol>
                       </CRow>
-                      {/* {
-                        toastview &&
-                        <b style={{ color: 'red' }}>username or password wrong !</b>
-                      } */}
                     </CForm>
                   </CCardBody>
                 </CCard>

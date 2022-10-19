@@ -1,19 +1,25 @@
 /* eslint-disable prettier/prettier */
 import axios from "axios"
 
-axios.defaults.headers.common = { 'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNGY5Mzg1OWI3Njc2YmI0ZjJkYzM5MyIsImlhdCI6MTY2NjE1OTUyNywiZXhwIjoxNjY3NDU1NTI3fQ.v75voraoZWsriXT-TVYEAEO2gUGqgbJKYzS-txnUdvw` }
-export const Login = () => {
-    return false
+export const LoginApi = (data) => {
+    return axios.post(`http://localhost:8000/api/serviceprovider/signin`, data)
 }
-export const ChangePassword = () => {
-    return false
+export const ChangePassword = (data) => {
+    return axios.post(`http://localhost:8000/api/serviceprovider/changePassword`, data)
 }
-export const ForgetPassword = () => {
-    return false
+export const ForgetPassword = (data) => {
+    return axios.post(`http://localhost:8000/api/serviceprovider/forgetPassword`, data)
+}
+export const OTPverify = (data) => {
+    return axios.post(`http://localhost:8000/api/serviceprovider/verifyOtp`, data)
 }
 export const getAllCustomer = () => {
-    return axios.get(`http://localhost:8000/api/admin/getallcustomers`)
+    return axios.get(`http://localhost:8000/api/admin/getallcustomers`, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+    })
 }
 export const getAllServiceProvider = () => {
-    return axios.get(`http://localhost:8000/api/admin/getAllServiceProviders`)
+    return axios.get(`http://localhost:8000/api/admin/getAllServiceProviders`, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+    })
 }
