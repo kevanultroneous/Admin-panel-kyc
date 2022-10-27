@@ -11,7 +11,9 @@ export const ForgetPassword = (data) => {
     return axios.post(`http://localhost:8000/api/serviceprovider/forgetPassword`, data)
 }
 export const OTPverify = (data) => {
-    return axios.post(`http://localhost:8000/api/serviceprovider/verifyOtp`, data)
+    return axios.post(`http://localhost:8000/api/serviceprovider/verifyOtp`, data, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+    })
 }
 export const getAllCustomer = () => {
     return axios.get(`http://localhost:8000/api/admin/getallcustomers`, {

@@ -20,7 +20,7 @@ import {
 } from '@coreui/react'
 import './login.css'
 import toast, { Toaster } from 'react-hot-toast'
-import { ForgetPassword, LoginApi } from 'src/api/api'
+import { ForgetPassword, LoginApi, OTPverify } from 'src/api/api'
 const Login = () => {
   const navigate = useNavigate()
   const [visible, setVisible] = useState(false)
@@ -28,12 +28,15 @@ const Login = () => {
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
   const [femail, setfemail] = useState("")
+  const [genToken, setGenToken] = useState("")
+  const [otps, setOtps] = useState("")
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
       navigate('/dashboard')
     }
   })
+
 
   const loginAction = () => {
     if (!validator.isEmail(userName)) {
@@ -63,6 +66,7 @@ const Login = () => {
       ForgetPassword({ email: femail }).then((r) => {
         if (r.data.data != null && (r.data.token !== null || r.data.token !== "")) {
           setOtp(true)
+          setGenToken(r.data.token)
           toast.success("OTP send successfully , Check your email !")
         }
       }).catch((e) => {
@@ -73,6 +77,17 @@ const Login = () => {
     }
   }
 
+  const verify = () => {
+    OTPverify({ otp: otps }).then((r) => {
+      if (r.data.data != null && (r.data.token !== null || r.data.token !== "")) {
+        toast.success("Login successfully !")
+      }
+    }).catch((e) => {
+      if (e.response) {
+        toast.error(e.response.data.message)
+      }
+    })
+  }
   return (
     <>
       <Toaster
@@ -83,24 +98,46 @@ const Login = () => {
       <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
         <CModal alignment="center" visible={visible} onClose={() => setVisible(false)}>
 
-          <CModalHeader>
+          <CModalHeader >
             <CModalTitle>Forget Password</CModalTitle>
           </CModalHeader>
 
           <CModalBody className='p-4'>
             <CRow>
-              <CCol md={9} >
-                <CFormInput
-                  value={femail}
-                  onChange={(e) => setfemail(e.target.value)}
-                  type="email"
-                  placeholder="Email"
-                  className='inputborder'
-                />
-              </CCol>
-              <CCol md={3} >
-                <CButton color="primary" className='loginbtn' onClick={fsubmitHandler}>Submit</CButton>
-              </CCol>
+              {
+                !otp ?
+                  <>
+                    <CCol md={9} >
+                      <CFormInput
+                        value={femail}
+                        onChange={(e) => setfemail(e.target.value)}
+                        type="email"
+                        placeholder="Email"
+                        className='inputborder'
+                      />
+                    </CCol>
+
+                    <CCol md={3} >
+                      <CButton color="primary" className='loginbtn' onClick={fsubmitHandler}>Submit</CButton>
+                    </CCol>
+                  </>
+                  :
+                  <>
+                    <CCol xl={9}>
+                      <CFormInput
+                        value={femail}
+                        onChange={(e) => setfemail(e.target.value)}
+                        type="email"
+                        placeholder="Email"
+                        className='inputborder'
+                      />
+                    </CCol>
+                    <CCol md={3} >
+                      <CButton color="primary" className='loginbtn' onClick={fsubmitHandler}>Verify</CButton>
+                    </CCol>
+
+                  </>
+              }
             </CRow>
           </CModalBody>
         </CModal>
