@@ -24,10 +24,7 @@ import { ForgetPassword, LoginApi } from 'src/api/api'
 const Login = () => {
   const navigate = useNavigate()
   const [visible, setVisible] = useState(false)
-  const [toastview, setToastView] = useState(false)
   const [otp, setOtp] = useState(false)
-  const [otpInp, setOtpInp] = useState("")
-  const [ftoken, setFtoken] = useState("")
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
   const [femail, setfemail] = useState("")

@@ -8,7 +8,9 @@ export const customerField = [
     'Action',
 ]
 export const viewCustomerField = [
-    'Name', 'Review', 'Ratings', 'Overall Ratings'
+    'Name',
+    // 'Review',
+    'Ratings', 'Overall Ratings'
 ]
 export const serviceProviderField = [
     'Id',

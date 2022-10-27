@@ -6,17 +6,16 @@ import { CButton, CCol, CFormInput, CInputGroup, CRow, CTable, CTableBody, CTabl
 
 import {
     cilTrash,
-    cilContact,
-    cilSearch
+    cilContact
 } from '@coreui/icons'
 
 import { useEffect, useState } from 'react'
-import { getAllCustomer } from 'src/api/api'
+import { customerSearch, getAllCustomer } from 'src/api/api'
 import AlertBox from './AlertBox'
 import ViewModel from './ViewModel'
 import { customerField, viewCustomerField } from './dummyList'
 import { NoData, SpinnerView } from './Nodata'
-import { Toaster } from 'react-hot-toast'
+import toast, { Toaster } from 'react-hot-toast'
 
 export default function Customers() {
 
@@ -28,6 +27,10 @@ export default function Customers() {
     const [currentReview, setCurrentReview] = useState(null)
     const [viewVisible, setViewVisible] = useState(false)
     const [updatingReview, setUpdatingReview] = useState("")
+
+    useEffect(() => {
+        getMyCustomer()
+    }, [])
 
     const getMyCustomer = () => {
         setLoader(true)
@@ -41,9 +44,20 @@ export default function Customers() {
             })
     }
 
-    useEffect(() => {
-        getMyCustomer()
-    }, [])
+    const callSearch = (input) => {
+        setLoader(true)
+        setTimeout(() => {
+            customerSearch({ searchText: input }).then((r) => {
+                setLoader(false)
+                setTableData(r.data.data)
+            }).catch((e) => {
+                setLoader(false)
+                if (e.response) {
+                    toast.error(e.response.data.message)
+                }
+            })
+        }, 1000)
+    }
 
     const customerDetailHide = () => {
         setViewVisible(false)
@@ -78,7 +92,7 @@ export default function Customers() {
                                     <CTableDataCell>
                                         <div>{currentCustomer.name}</div>
                                     </CTableDataCell>
-                                    <CTableDataCell>
+                                    {/* <CTableDataCell>
                                         <div>{currentCustomer?.reviews?.map((v, i) =>
                                             <CRow key={i}>
                                                 <CCol xl={8}>
@@ -95,11 +109,11 @@ export default function Customers() {
                                                 </CCol>
                                             </CRow>
                                         )}</div>
+                                    </CTableDataCell> */}
+                                    <CTableDataCell >
+                                        <div>{currentCustomer.totalReviews}</div>
                                     </CTableDataCell>
-                                    <CTableDataCell className='text-center'>
-                                        <div>{currentCustomer.starsRating}</div>
-                                    </CTableDataCell>
-                                    <CTableDataCell className='text-center'>
+                                    <CTableDataCell >
                                         <div>{currentCustomer.overallRating}</div>
                                     </CTableDataCell>
                                 </CTableRow>
@@ -116,9 +130,9 @@ export default function Customers() {
                                         <CButton color="danger" variant="ghost">
                                             Delete Review
                                         </CButton>
-                                        <CButton color="info" variant="ghost" onClick={() => alert(updatingReview)}>
+                                        {/* <CButton color="info" variant="ghost" onClick={() => alert(updatingReview)}>
                                             Update Review
-                                        </CButton>
+                                        </CButton> */}
                                         <CButton color="primary" variant="ghost" onClick={() => setCurrentReview(null)}>
                                             Close Review
                                         </CButton>
@@ -136,10 +150,11 @@ export default function Customers() {
 
             {/* Search bar */}
             <CInputGroup className="mb-3">
-                <CFormInput placeholder="Search by Name or Email id or Phone number" aria-label="Name or Email id or Phone number" aria-describedby="button-addon2" />
-                <CButton type="button" color="info" variant="outline" id="button-addon2">
+                <CFormInput placeholder="Search by Name or Email id or Phone number"
+                    aria-label="Name or Email id or Phone number" aria-describedby="button-addon2" onChange={(e) => callSearch(e.target.value)} />
+                {/* <CButton type="button" color="info" variant="outline" id="button-addon2">
                     <CIcon icon={cilSearch} />
-                </CButton>
+                </CButton> */}
             </CInputGroup>
 
             {/* Data table */}

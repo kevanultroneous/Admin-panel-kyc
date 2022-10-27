@@ -28,3 +28,8 @@ export const setBlockOrUnblockUser = (data) => {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
     })
 }
+export const customerSearch = (data) => {
+    return axios.post(`http://localhost:8000/api/serviceprovider/search`, data, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+    })
+}
