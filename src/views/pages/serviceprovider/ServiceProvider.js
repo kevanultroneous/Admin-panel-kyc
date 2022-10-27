@@ -4,6 +4,7 @@ import { cilSearch } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { CButton, CFormInput, CFormSwitch, CInputGroup, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react'
 import { useEffect, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 import { getAllServiceProvider, setBlockOrUnblockUser } from 'src/api/api'
 import AlertBox from '../customers/AlertBox'
 import { serviceProviderField } from '../customers/dummyList'
@@ -36,9 +37,12 @@ export default function ServiceProvider() {
             getMySP()
             setVisible(false)
         }).catch((e) => {
-            console.log(e)
+            if (e.response) {
+                toast.error(e.response.data.message)
+            }
         })
     }
+
     const handleBlockUnblock = (e) => {
         setVisible(true)
         if (e.target.checked) {
@@ -50,6 +54,10 @@ export default function ServiceProvider() {
 
     return (
         <>
+            <Toaster
+                position="top-right"
+                reverseOrder={false}
+            />
             <AlertBox
                 customTitle={titleOfModel + " Service Provider"}
                 customBody={
