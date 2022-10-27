@@ -23,15 +23,20 @@ import toast, { Toaster } from 'react-hot-toast'
 import { ForgetPassword, LoginApi } from 'src/api/api'
 const Login = () => {
   const navigate = useNavigate()
+  const [visible, setVisible] = useState(false)
+  const [toastview, setToastView] = useState(false)
+  const [otp, setOtp] = useState(false)
+  const [otpInp, setOtpInp] = useState("")
+  const [ftoken, setFtoken] = useState("")
+  const [userName, setUserName] = useState('')
+  const [password, setPassword] = useState('')
+  const [femail, setfemail] = useState("")
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
       navigate('/dashboard')
     }
   })
-
-  const [userName, setUserName] = useState('')
-  const [password, setPassword] = useState('')
-  const [femail, setfemail] = useState("")
 
   const loginAction = () => {
     if (!validator.isEmail(userName)) {
@@ -53,11 +58,7 @@ const Login = () => {
       })
     }
   }
-  const [visible, setVisible] = useState(false)
-  const [toastview, setToastView] = useState(false)
-  const [otp, setOtp] = useState(false)
-  const [otpInp, setOtpInp] = useState("")
-  const [ftoken, setFtoken] = useState("")
+
   const fsubmitHandler = () => {
     if (!validator.isEmail(femail)) {
       toast.error('Enter valid email !')
@@ -81,11 +82,14 @@ const Login = () => {
         position="top-right"
         reverseOrder={false}
       />
+
       <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
         <CModal alignment="center" visible={visible} onClose={() => setVisible(false)}>
+
           <CModalHeader>
             <CModalTitle>Forget Password</CModalTitle>
           </CModalHeader>
+
           <CModalBody className='p-4'>
             <CRow>
               <CCol md={9} >
@@ -103,6 +107,7 @@ const Login = () => {
             </CRow>
           </CModalBody>
         </CModal>
+
         <CContainer>
           <CRow className="justify-content-center">
             <CCol md={5} >
@@ -145,22 +150,6 @@ const Login = () => {
                     </CForm>
                   </CCardBody>
                 </CCard>
-                {/* <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
-                <CCardBody className="text-center">
-                  <div>
-                    <h2>Sign up</h2>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                      tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <Link to="/register">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>
-                        Register Now!
-                      </CButton>
-                    </Link>
-                  </div>
-                </CCardBody>
-              </CCard> */}
               </CCardGroup>
             </CCol>
           </CRow>
