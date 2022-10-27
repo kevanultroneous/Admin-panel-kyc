@@ -15,5 +15,5 @@ export const serviceProviderField = [
     'Name',
     'Email id',
     'Phone number',
-    'Action (Block)',
+    'Block',
 ]

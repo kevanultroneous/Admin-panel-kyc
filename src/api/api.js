@@ -23,3 +23,8 @@ export const getAllServiceProvider = () => {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
     })
 }
+export const setBlockOrUnblockUser = (data) => {
+    return axios.post(`http://localhost:8000/api/admin/blockuser`, data, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+    })
+}

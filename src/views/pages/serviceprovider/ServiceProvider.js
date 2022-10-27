@@ -4,13 +4,17 @@ import { cilSearch } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { CButton, CFormInput, CFormSwitch, CInputGroup, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react'
 import { useEffect, useState } from 'react'
-import { getAllServiceProvider } from 'src/api/api'
+import { getAllServiceProvider, setBlockOrUnblockUser } from 'src/api/api'
+import AlertBox from '../customers/AlertBox'
 import { serviceProviderField } from '../customers/dummyList'
 import { NoData, SpinnerView } from '../customers/Nodata'
 export default function ServiceProvider() {
 
     const [tableData, setTableData] = useState([])
     const [loader, setLoader] = useState(false)
+    const [visible, setVisible] = useState(false)
+    const [titleOfModel, setTitleOfModel] = useState("Block")
+    const [currentUser, setCurrentUser] = useState(null)
 
     const getMySP = () => {
         setLoader(true)
@@ -27,8 +31,39 @@ export default function ServiceProvider() {
         getMySP()
     }, [])
 
+    const callBlockAction = (id) => {
+        setBlockOrUnblockUser(id).then((r) => {
+            getMySP()
+            setVisible(false)
+        }).catch((e) => {
+            console.log(e)
+        })
+    }
+    const handleBlockUnblock = (e) => {
+        setVisible(true)
+        if (e.target.checked) {
+            setTitleOfModel("Block")
+        } else {
+            setTitleOfModel("Unblock")
+        }
+    }
+
     return (
         <>
+            <AlertBox
+                customTitle={titleOfModel + " Service Provider"}
+                customBody={
+                    <>
+                        <h6>Are you sure to <b>{titleOfModel} {currentUser?.name}</b>  Service provider ?</h6>
+                        {
+                            titleOfModel === "Block" &&
+                            <h6>This person will no longer be able to interact with you in KYC.</h6>
+                        }
+                    </>
+                } visible={visible}
+                onClose={() => setVisible(false)}
+                onNo={() => setVisible(false)}
+                onYes={() => callBlockAction({ userId: currentUser._id })} />
 
             <CInputGroup className="mb-3">
                 <CFormInput placeholder="Search by Name or Email id or Phone number" aria-label="Name or Email id or Phone number" aria-describedby="button-addon2" />
@@ -36,6 +71,7 @@ export default function ServiceProvider() {
                     <CIcon icon={cilSearch} />
                 </CButton>
             </CInputGroup>
+
             <CTable align="middle" className="mb-0 border" hover responsive>
                 <CTableHead color="light">
                     <CTableRow>
@@ -63,9 +99,14 @@ export default function ServiceProvider() {
                                             <div>{item.contact}</div>
                                         </CTableDataCell>
                                         <CTableDataCell>
-                                            <CFormSwitch id={`switchblock${index}`} type='checkbox' />
+                                            <CFormSwitch id={`switchblock${index}`} type='checkbox'
+                                                checked={item.isActive}
+                                                onChange={(e) => {
+                                                    setCurrentUser(item)
+                                                    handleBlockUnblock(e)
+                                                }}
+                                            />
                                         </CTableDataCell>
-
                                     </CTableRow>
                                 )) :
                                 <NoData />
