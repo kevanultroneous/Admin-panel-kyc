@@ -85,7 +85,7 @@ const ViewCustomer = () => {
                         detailsData != null ?
                             <>
                                 <CTable align="middle" className="mb-0 border" hover responsive style={{ border: "none !important" }}>
-                                    <CTableHead >
+                                    {/* <CTableHead >
                                         <CTableRow >
                                             <CTableHeaderCell colSpan={viewCustomerDetail.length}>
                                                 <CIcon icon={cilArrowLeft} color="#000" height={30} onClick={() => navigate('/customers')} />
@@ -98,8 +98,8 @@ const ViewCustomer = () => {
                                                 </CTableHeaderCell>)}
                                         </CTableRow>
 
-                                    </CTableHead>
-                                    <CTableBody >
+                                    </CTableHead> */}
+                                    {/* <CTableBody >
                                         {
                                             detailsData != null ?
                                                 <CTableRow v-for="item in tableItems" >
@@ -122,16 +122,37 @@ const ViewCustomer = () => {
                                                 </CTableRow> :
                                                 <NoData />
                                         }
-                                    </CTableBody>
+                                    </CTableBody> */}
                                 </CTable>
+                                <CRow className="BigCard">
+                                    <CCol xl={12}>
+                                        <CIcon icon={cilArrowLeft} color="#000" height={30} onClick={() => navigate('/customers')} />
+                                    </CCol>
+                                    <CCol xl={6} className="mt-3">
+                                        <div>Name : <b>{detailsData?.data?.name}</b></div>
+                                        <div className="mt-2">Email: <b>{detailsData?.data?.email}</b></div>
+                                        <div className="mt-2">Total reviews received : {detailsData?.data?.totalReviews}</div>
+                                    </CCol>
+                                    <CCol xl={6} className="mt-3">
+                                        <h5>Overall Ratings</h5>
+                                        <div><Rating
+                                            iconsCount={5}
+                                            initialValue={detailsData?.data?.overallRating}
+                                            allowFraction
+                                            size={25}
+                                            emptyColor={"transparent"}
+                                            readonly
+                                        /></div>
+                                    </CCol>
+
+                                </CRow>
                                 <CRow className="mt-5">
                                     {
                                         detailsData?.data?.reviews?.length > 0 ?
                                             detailsData?.data?.reviews?.map((v, i) =>
 
-                                                v?.isActive &&
+                                                v?.isActive == true ?
 
-                                                    counts <= 0 ? <NoData customTitle={"No Reviews"} /> :
 
                                                     <CCol xl={4} key={i}>
                                                         <CRow className="CardOfReview">
@@ -147,6 +168,7 @@ const ViewCustomer = () => {
                                                             </CCol>
                                                         </CRow>
                                                     </CCol>
+                                                    : null
                                             )
                                             :
                                             <NoData />

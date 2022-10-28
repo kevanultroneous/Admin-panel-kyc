@@ -5,7 +5,22 @@
     transition: all 1s ease;
     cursor: pointer;
     margin-bottom: 2rem;
-    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.BigCard {
+    padding: 1.5rem 1.5rem 3rem 2rem;
+    border-radius: 20px;
+    transition: all 1s ease;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    color: #fff;
+    background: #1273EB;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.9px);
+    -webkit-backdrop-filter: blur(5.9px);
+    border: 1px solid rgba(255, 255, 255, 0.46);
 }
 
 .CardOfReview:hover {

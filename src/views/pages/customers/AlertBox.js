@@ -24,10 +24,10 @@ export default function AlertBox({ visible, onClose, customTitle, customBody, cu
                 {
                     customFooter ? customFooter :
                         <>
-                            <CButton color={nocolor ? nocolor : "danger"} onClick={onNo}>
+                            <CButton color={nocolor ? nocolor : "secondary"} onClick={onNo}>
                                 No
                             </CButton>
-                            <CButton color={yescolor ? yescolor : "success"} onClick={onYes}>Yes</CButton>
+                            <CButton color={yescolor ? yescolor : "warning"} onClick={onYes}>Yes , Delete</CButton>
                         </>
                 }
             </CModalFooter>
