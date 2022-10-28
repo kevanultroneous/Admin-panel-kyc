@@ -1,0 +1,70 @@
+.CardOfReview {
+    padding: 1.5rem 1.5rem 3rem 2rem;
+    border-radius: 20px;
+    background-color: #1273EB;
+    transition: all 1s ease;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    margin-left: 1rem;
+}
+
+.CardOfReview:hover {
+    box-shadow: -12px 24px 58px -16px #323232;
+    transition: all 1s ease;
+}
+
+.ReviewText {
+    font-weight: 500;
+    color: #fff;
+    height: 7.5rem;
+    overflow-y: scroll;
+}
+
+.SPtext {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    padding-bottom: 1rem;
+}
+
+.DeleteBtn {
+    text-align: right;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 20px;
+    font-size: 25px;
+    width: fit-content;
+    transition: all 1s ease;
+}
+
+.DeleteBtn:hover {
+    color: #DD5353;
+    transition: all 1s ease;
+}
+
+.DeleteBtnCover {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    padding: 0%;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #323232;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #DD5353;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #DD5353;
+}

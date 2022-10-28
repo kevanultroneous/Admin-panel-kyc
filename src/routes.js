@@ -4,6 +4,7 @@ const Customers = React.lazy(() => import('./views/pages/customers/Customers'))
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const ChangePassword = React.lazy(() => import('./views/pages/login/ChangePassword'))
 const ServiceProvider = React.lazy(() => import('./views/pages/serviceprovider/ServiceProvider'))
+const ViewCustomer = React.lazy(() => import('./views/pages/customers/ViewCustomers'))
 // const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 // const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
 // Base
@@ -58,6 +59,7 @@ const routes = [
   { path: '/customers', name: 'Customers', element: Customers },
   { path: '/service-providers', name: 'ServiceProvider', element: ServiceProvider },
   { path: '/change-password', name: 'ChangePassword', element: ChangePassword },
+  { path: '/view-customer', name: 'View Customer', element: ViewCustomer },
   // { path: '/theme', name: 'Theme', element: Colors, exact: true },
   // { path: '/theme/colors', name: 'Colors', element: Colors },
   // { path: '/theme/typography', name: 'Typography', element: Typography },

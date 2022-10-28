@@ -14,6 +14,8 @@ import {
     CRow,
 } from '@coreui/react'
 import './login.css'
+import { ChangePasswordApi } from 'src/api/api'
+import toast, { Toaster } from 'react-hot-toast'
 
 const ChangePassword = () => {
     const navigate = useNavigate()
@@ -27,10 +29,28 @@ const ChangePassword = () => {
     const [passwordCopy, setPasswordCopy] = useState('')
 
     const saveAction = () => {
-        navigate('/login')
+        ChangePasswordApi({
+            oldPassword: password,
+            newPassword: passwordNew,
+            confirmPassword: passwordCopy
+        }, localStorage.getItem("token")).then((r) => {
+            if (r.data != null) {
+                toast.success("Password changed successfully, Login now !")
+                localStorage.removeItem("token")
+                navigate('/login')
+            }
+        }).catch((e) => {
+            if (e.response) {
+                toast.error(e.response.data.message)
+            }
+        })
     }
     return (
         <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+            <Toaster
+                position="top-right"
+                reverseOrder={false}
+            />
             <CContainer>
                 <CRow className="justify-content-center">
                     <CCol md={5}>
@@ -47,6 +67,7 @@ const ChangePassword = () => {
                                                 placeholder="Enter old password"
                                                 className='inputborder'
                                             />
+
                                         </CInputGroup>
                                         <CInputGroup className="mb-4">
                                             <CFormInput
@@ -76,22 +97,6 @@ const ChangePassword = () => {
                                     </CForm>
                                 </CCardBody>
                             </CCard>
-                            {/* <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
-                <CCardBody className="text-center">
-                  <div>
-                    <h2>Sign up</h2>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                      tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <Link to="/register">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>
-                        Register Now!
-                      </CButton>
-                    </Link>
-                  </div>
-                </CCardBody>
-              </CCard> */}
                         </CCardGroup>
                     </CCol>
                 </CRow>

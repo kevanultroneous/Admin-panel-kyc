@@ -4,13 +4,18 @@ export const customerField = [
     'Customer Name',
     'Email id',
     'Phone number',
-    'Added By(service provider)',
+    // 'Added By(service provider)',
     'Action',
 ]
 export const viewCustomerField = [
     'Name',
     // 'Review',
     'Ratings', 'Overall Ratings'
+]
+export const viewCustomerDetail = [
+    'Name',
+    'Number of Review',
+    'Overall Ratings',
 ]
 export const serviceProviderField = [
     'Id',

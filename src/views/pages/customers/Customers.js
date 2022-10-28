@@ -6,7 +6,8 @@ import { CButton, CCol, CFormInput, CInputGroup, CRow, CTable, CTableBody, CTabl
 
 import {
     cilTrash,
-    cilContact
+    cilContact,
+    cilList
 } from '@coreui/icons'
 
 import { useEffect, useState } from 'react'
@@ -16,6 +17,7 @@ import ViewModel from './ViewModel'
 import { customerField, viewCustomerField } from './dummyList'
 import { NoData, SpinnerView } from './Nodata'
 import toast, { Toaster } from 'react-hot-toast'
+import { Link } from 'react-router-dom'
 
 export default function Customers() {
 
@@ -182,19 +184,12 @@ export default function Customers() {
                                         <CTableDataCell>
                                             <div>{item.contact}</div>
                                         </CTableDataCell>
-                                        <CTableDataCell>
+                                        {/* <CTableDataCell>
                                             <div>{"added by"}</div>
-                                        </CTableDataCell>
+                                        </CTableDataCell> */}
                                         <CTableDataCell>
-                                            <CButton color="info" variant="ghost" onClick={() => {
-                                                setCurrentCustomer(item)
-                                                setVisibleView(true)
-                                            }}>
-                                                <CIcon icon={cilContact} />
-                                            </CButton>
-                                            <CButton color="danger" variant="ghost" onClick={() => setVisible(true)}>
-                                                <CIcon icon={cilTrash} />
-                                            </CButton>
+                                            <Link to={{ pathname: "/view-customer" }} state={{ item }}>View in Details
+                                            </Link>
                                         </CTableDataCell>
                                     </CTableRow>
                                 ))
