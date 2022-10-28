@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React from 'react'
 import {
   CAvatar,
@@ -77,11 +78,11 @@ const AppHeaderDropdown = () => {
           </CBadge>
         </CDropdownItem>
         <CDropdownDivider /> */}
-        <CDropdownItem onClick={logoutAction}>
+        <CDropdownItem onClick={logoutAction} style={{ cursor: "pointer" }}>
           <CIcon icon={cilAccountLogout} className="me-2" />
           Logout
         </CDropdownItem>
-        <CDropdownItem onClick={passwordChangeAction}>
+        <CDropdownItem onClick={passwordChangeAction} style={{ cursor: "pointer" }}>
           <CIcon icon={cilTransfer} className="me-2" />
           Change Password
         </CDropdownItem>

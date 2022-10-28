@@ -6,6 +6,7 @@ export const customerField = [
     'Phone number',
     // 'Added By(service provider)',
     'Action',
+    'Block',
 ]
 export const viewCustomerField = [
     'Name',

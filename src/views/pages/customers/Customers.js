@@ -2,7 +2,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import CIcon from '@coreui/icons-react'
 
-import { CButton, CCol, CFormInput, CInputGroup, CRow, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react'
+import { CButton, CCol, CFormInput, CFormSwitch, CInputGroup, CRow, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react'
 
 import {
     cilTrash,
@@ -11,7 +11,7 @@ import {
 } from '@coreui/icons'
 
 import { useEffect, useState } from 'react'
-import { customerSearch, getAllCustomer } from 'src/api/api'
+import { customerSearch, getAllCustomer, setBlockOrUnblockUser } from 'src/api/api'
 import AlertBox from './AlertBox'
 import ViewModel from './ViewModel'
 import { customerField, viewCustomerField } from './dummyList'
@@ -24,11 +24,14 @@ export default function Customers() {
     const [tableData, setTableData] = useState([])
     const [loader, setLoader] = useState(false)
     const [visible, setVisible] = useState(false)
+    const [visible2, setVisible2] = useState(false)
     const [visibleView, setVisibleView] = useState(false)
     const [currentCustomer, setCurrentCustomer] = useState({})
     const [currentReview, setCurrentReview] = useState(null)
     const [viewVisible, setViewVisible] = useState(false)
     const [updatingReview, setUpdatingReview] = useState("")
+    const [currentUser, setCurrentUser] = useState(null)
+    const [titleOfModel, setTitleOfModel] = useState("Block")
 
     useEffect(() => {
         getMyCustomer()
@@ -68,6 +71,26 @@ export default function Customers() {
         setVisibleView(false)
     }
 
+    const handleBlockUnblock = (e) => {
+        setVisible2(true)
+        if (e.target.checked) {
+            setTitleOfModel("Block")
+        } else {
+            setTitleOfModel("Unblock")
+        }
+    }
+
+    const callBlockAction = (id) => {
+        setBlockOrUnblockUser(id).then((r) => {
+            getMyCustomer()
+            setVisible2(false)
+        }).catch((e) => {
+            if (e.response) {
+                toast.error(e.response.data.message)
+            }
+        })
+    }
+
     return (
         <div>
             {/* Alert box and View data model */}
@@ -75,6 +98,20 @@ export default function Customers() {
                 position="top-right"
                 reverseOrder={false}
             />
+            <AlertBox
+                customTitle={titleOfModel + " Service Provider"}
+                customBody={
+                    <>
+                        <h6>Are you sure to <b>{titleOfModel} {currentUser?.name}</b>  Customer ?</h6>
+                        {
+                            titleOfModel === "Block" &&
+                            <h6>This person will no longer be able to interact with you in KYC.</h6>
+                        }
+                    </>
+                } visible={visible2}
+                onClose={() => setVisible2(false)}
+                onNo={() => setVisible2(false)}
+                onYes={() => callBlockAction({ userId: currentUser._id })} />
             <AlertBox visible={visible} onClose={() => setVisible(false)} onNo={() => setVisible(false)} onYes={() => null} />
             <ViewModel
                 size={2}
@@ -118,6 +155,7 @@ export default function Customers() {
                                     <CTableDataCell >
                                         <div>{currentCustomer.overallRating}</div>
                                     </CTableDataCell>
+
                                 </CTableRow>
                             </CTableBody>
                         </CTable>
@@ -171,7 +209,9 @@ export default function Customers() {
                         loader ? <SpinnerView /> :
                             tableData.length > 0 ?
                                 tableData?.map((item, index) => (
+
                                     <CTableRow v-for="item in tableItems" key={index}>
+                                        {console.log(item)}
                                         <CTableDataCell>
                                             <div>{index + 1}</div>
                                         </CTableDataCell>
@@ -188,6 +228,15 @@ export default function Customers() {
                                         <CTableDataCell>
                                             <Link to={{ pathname: "/view-customer" }} state={{ item: item._id }}>View in Details
                                             </Link>
+                                        </CTableDataCell>
+                                        <CTableDataCell>
+                                            <CFormSwitch id={`switchblock${index}`} type='checkbox'
+                                                checked={item.isActive}
+                                                onChange={(e) => {
+                                                    setCurrentUser(item)
+                                                    handleBlockUnblock(e)
+                                                }}
+                                            />
                                         </CTableDataCell>
                                     </CTableRow>
                                 ))
