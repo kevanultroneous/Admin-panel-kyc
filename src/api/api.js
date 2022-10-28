@@ -38,7 +38,17 @@ export const setBlockOrUnblockUser = (data) => {
     })
 }
 export const customerSearch = (data) => {
-    return axios.post(`http://localhost:8000/api/serviceprovider/search`, data, {
+    return axios.post(`http://localhost:8000/api/admin/search`, data, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+    })
+}
+export const viewInDetailCustomer = (id) => {
+    return axios.post(`http://localhost:8000/api/admin/getAllCustomers`, { id: id }, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+    })
+}
+export const deleteReview = (id) => {
+    return axios.post(`http://localhost:8000/api/serviceprovider/deleteReview`, { id: id }, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
     })
 }

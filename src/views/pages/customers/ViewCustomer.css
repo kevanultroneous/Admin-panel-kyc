@@ -16,7 +16,7 @@
 .ReviewText {
     font-weight: 500;
     color: #fff;
-    height: 7.5rem;
+    height: 7rem;
     overflow-y: scroll;
 }
 
@@ -29,6 +29,7 @@
 
 .DeleteBtn {
     text-align: right;
+    margin-bottom: 1rem;
     color: #fff;
     cursor: pointer;
     border-radius: 20px;

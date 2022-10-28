@@ -5,7 +5,7 @@ import CIcon from '@coreui/icons-react'
 import { CButton, CFormInput, CFormSwitch, CInputGroup, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react'
 import { useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
-import { getAllServiceProvider, setBlockOrUnblockUser } from 'src/api/api'
+import { customerSearch, getAllServiceProvider, setBlockOrUnblockUser } from 'src/api/api'
 import AlertBox from '../customers/AlertBox'
 import { serviceProviderField } from '../customers/dummyList'
 import { NoData, SpinnerView } from '../customers/Nodata'
@@ -43,6 +43,21 @@ export default function ServiceProvider() {
         })
     }
 
+    const callSearch = (input) => {
+        setLoader(true)
+        setTimeout(() => {
+            customerSearch({ searchText: input, searchField: "ServiceProvider" }).then((r) => {
+                setLoader(false)
+                setTableData(r.data.data)
+            }).catch((e) => {
+                setLoader(false)
+                if (e.response) {
+                    toast.error(e.response.data.message)
+                }
+            })
+        }, 1000)
+    }
+
     const handleBlockUnblock = (e) => {
         setVisible(true)
         if (e.target.checked) {
@@ -74,10 +89,12 @@ export default function ServiceProvider() {
                 onYes={() => callBlockAction({ userId: currentUser._id })} />
 
             <CInputGroup className="mb-3">
-                <CFormInput placeholder="Search by Name or Email id or Phone number" aria-label="Name or Email id or Phone number" aria-describedby="button-addon2" />
-                <CButton type="button" color="info" variant="outline" id="button-addon2">
-                    <CIcon icon={cilSearch} />
-                </CButton>
+                <CFormInput
+                    placeholder="Search by Name or Email id or Phone number"
+                    aria-label="Name or Email id or Phone number"
+                    aria-describedby="button-addon2"
+                    onChange={(e) => callSearch(e.target.value.toString())}
+                />
             </CInputGroup>
 
             <CTable align="middle" className="mb-0 border" hover responsive>

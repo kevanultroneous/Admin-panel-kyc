@@ -11,65 +11,154 @@ import { MdDelete, MdDeleteForever } from "react-icons/md"
 import { AiFillStar } from "react-icons/ai"
 import "./ViewCustomer.css"
 import { Rating } from "react-simple-star-rating";
+import { useState } from "react";
+import { deleteReview, viewInDetailCustomer } from "src/api/api";
+import toast, { Toaster } from "react-hot-toast";
+import { NoData, SpinnerView } from "./Nodata";
+import AlertBox from "./AlertBox";
 /* eslint-disable react/react-in-jsx-scope */
 const ViewCustomer = () => {
+
+    const [detailsData, setDetailsData] = useState({})
+    const [loader, setLoader] = useState(false)
+    const [visible, setVisible] = useState(false)
+    const [currentId, setCurrentId] = useState(null)
+    const [counts, setCounts] = useState(0)
     let navigate = useNavigate()
     let location = useLocation();
-    console.log(location);
-    return (<div>
-        <CTable align="middle" className="mb-0 border" hover responsive style={{ border: "none !important" }}>
-            <CTableHead >
-                <CTableRow >
-                    <CTableHeaderCell colSpan={viewCustomerDetail.length}>
-                        <CIcon icon={cilArrowLeft} color="#000" height={30} onClick={() => navigate('/customers')} />
-                    </CTableHeaderCell>
-                </CTableRow>
-                <CTableRow >
-                    {viewCustomerDetail.map((value, index) =>
-                        <CTableHeaderCell key={index} className="text-center">
-                            {value}
-                        </CTableHeaderCell>)}
-                </CTableRow>
 
-            </CTableHead>
-            <CTableBody >
-                <CTableRow v-for="item in tableItems" >
-                    <CTableDataCell className="text-center">
-                        <div>{location.state.item.name}</div>
-                    </CTableDataCell >
-                    <CTableDataCell className="text-center">
-                        <div>{location.state.item.totalReviews}</div>
-                    </CTableDataCell>
 
-                    <CTableDataCell className="text-center">
-                        <div><Rating
-                            iconsCount={5}
-                            initialValue={location.state.item.overallRating}
-                            allowFraction
-                            size={20}
-                            readonly
-                        /></div>
-                    </CTableDataCell>
-
-                </CTableRow>
-            </CTableBody>
-        </CTable>
-        <CRow className="mt-5">
-            {
-                [0, 1, 2, 3, 4, 5].map((v, i) =>
-                    <CCol xl={4} key={i}>
-                        <CRow className="CardOfReview">
-                            <div className="DeleteBtnCover">
-                                <CCol xl={12} className="DeleteBtn"><MdDeleteForever /></CCol>
-                            </div>
-                            <CCol xl={12} className="SPtext">John martin</CCol>
-                            <CCol xl={12} className="ReviewText">
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</CCol>
-                        </CRow>
-                    </CCol>
-                )
+    const ViewDetailApi = () => {
+        setLoader(true)
+        viewInDetailCustomer(location?.state?.item).then((r) => {
+            setLoader(false)
+            setDetailsData(r.data)
+        }).catch((e) => {
+            setLoader(false)
+            if (e.response) {
+                toast.error(e.response.data.message)
             }
-        </CRow>
+        })
+    }
+
+    useState(() => {
+        ViewDetailApi()
+
+        detailsData?.data?.reviews?.map((v, i) =>
+
+            v?.isActive ? setCounts(i + counts) : null
+        )
+    }, [detailsData])
+
+    const deleteReviewAction = () => {
+        deleteReview(currentId).then((r) => {
+            ViewDetailApi()
+            setVisible(false)
+            toast.success("Review Deleted successfully !")
+        }
+        ).catch((e) => {
+            if (e.response) {
+                toast.error(e.response.data.message)
+            }
+        })
+    }
+
+    return (<div>
+        <Toaster
+            position="top-right"
+            reverseOrder={false}
+        />
+        <AlertBox visible={visible}
+            alignment="center"
+            onClose={() => setVisible(false)}
+            customTitle="Delete Review" customBody={<>
+                <h6>Are you sure to delete this Review ?</h6>
+            </>}
+            onNo={() => setVisible(false)}
+            onYes={() => deleteReviewAction()}
+        />
+
+        {
+            loader ? <SpinnerView /> :
+                <>
+                    {
+                        detailsData != null ?
+                            <>
+                                <CTable align="middle" className="mb-0 border" hover responsive style={{ border: "none !important" }}>
+                                    <CTableHead >
+                                        <CTableRow >
+                                            <CTableHeaderCell colSpan={viewCustomerDetail.length}>
+                                                <CIcon icon={cilArrowLeft} color="#000" height={30} onClick={() => navigate('/customers')} />
+                                            </CTableHeaderCell>
+                                        </CTableRow>
+                                        <CTableRow >
+                                            {viewCustomerDetail.map((value, index) =>
+                                                <CTableHeaderCell key={index} className="text-center">
+                                                    {value}
+                                                </CTableHeaderCell>)}
+                                        </CTableRow>
+
+                                    </CTableHead>
+                                    <CTableBody >
+                                        {
+                                            detailsData != null ?
+                                                <CTableRow v-for="item in tableItems" >
+                                                    <CTableDataCell className="text-center">
+                                                        <div>{detailsData?.data?.name}</div>
+                                                    </CTableDataCell >
+                                                    <CTableDataCell className="text-center">
+                                                        <div>{detailsData?.data?.totalReviews}</div>
+                                                    </CTableDataCell>
+
+                                                    <CTableDataCell className="text-center">
+                                                        <div><Rating
+                                                            iconsCount={5}
+                                                            initialValue={detailsData?.data?.overallRating}
+                                                            allowFraction
+                                                            size={20}
+                                                            readonly
+                                                        /></div>
+                                                    </CTableDataCell>
+                                                </CTableRow> :
+                                                <NoData />
+                                        }
+                                    </CTableBody>
+                                </CTable>
+                                <CRow className="mt-5">
+                                    {
+                                        detailsData?.data?.reviews?.length > 0 ?
+                                            detailsData?.data?.reviews?.map((v, i) =>
+
+                                                v?.isActive &&
+
+                                                    counts <= 0 ? <NoData customTitle={"No Reviews"} /> :
+
+                                                    <CCol xl={4} key={i}>
+                                                        <CRow className="CardOfReview">
+                                                            <div className="DeleteBtnCover">
+                                                                <CCol xl={12} className="DeleteBtn" onClick={() => {
+                                                                    setVisible(true)
+                                                                    setCurrentId(v?._id)
+                                                                }}><MdDeleteForever /></CCol>
+                                                            </div>
+                                                            <CCol xl={12} className="SPtext">{v.serviceProviderId?.name}</CCol>
+                                                            <CCol xl={12} className="ReviewText">
+                                                                {v.review}
+                                                            </CCol>
+                                                        </CRow>
+                                                    </CCol>
+                                            )
+                                            :
+                                            <NoData />
+                                    }
+                                </CRow>
+                            </>
+                            :
+                            <NoData />
+                    }
+
+                </>
+        }
     </div>)
 }
 export default ViewCustomer

@@ -184,11 +184,9 @@ export default function Customers() {
                                         <CTableDataCell>
                                             <div>{item.contact}</div>
                                         </CTableDataCell>
-                                        {/* <CTableDataCell>
-                                            <div>{"added by"}</div>
-                                        </CTableDataCell> */}
+
                                         <CTableDataCell>
-                                            <Link to={{ pathname: "/view-customer" }} state={{ item }}>View in Details
+                                            <Link to={{ pathname: "/view-customer" }} state={{ item: item._id }}>View in Details
                                             </Link>
                                         </CTableDataCell>
                                     </CTableRow>
