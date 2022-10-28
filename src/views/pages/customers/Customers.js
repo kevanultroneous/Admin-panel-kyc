@@ -81,6 +81,7 @@ export default function Customers() {
     }
 
     const callBlockAction = (id) => {
+
         setBlockOrUnblockUser(id).then((r) => {
             getMyCustomer()
             setVisible2(false)
@@ -111,7 +112,7 @@ export default function Customers() {
                 } visible={visible2}
                 onClose={() => setVisible2(false)}
                 onNo={() => setVisible2(false)}
-                onYes={() => callBlockAction({ userId: currentUser._id })} />
+                onYes={() => callBlockAction({ userId: currentUser?._id, type: "customer" })} />
             <AlertBox visible={visible} onClose={() => setVisible(false)} onNo={() => setVisible(false)} onYes={() => null} />
             <ViewModel
                 size={2}
@@ -131,54 +132,15 @@ export default function Customers() {
                                     <CTableDataCell>
                                         <div>{currentCustomer.name}</div>
                                     </CTableDataCell>
-                                    {/* <CTableDataCell>
-                                        <div>{currentCustomer?.reviews?.map((v, i) =>
-                                            <CRow key={i}>
-                                                <CCol xl={8}>
-                                                    <div key={i}>{v}</div>
-                                                </CCol>
-                                                <CCol xl={4}>
-                                                    <div onClick={() => {
-                                                        setUpdatingReview(v)
-                                                        setCurrentReview({ userid: v, review: v })
-                                                        setViewVisible(true)
-                                                    }} className='viewbtn'>
-                                                        view
-                                                    </div>
-                                                </CCol>
-                                            </CRow>
-                                        )}</div>
-                                    </CTableDataCell> */}
                                     <CTableDataCell >
                                         <div>{currentCustomer.totalReviews}</div>
                                     </CTableDataCell>
                                     <CTableDataCell >
                                         <div>{currentCustomer.overallRating}</div>
                                     </CTableDataCell>
-
                                 </CTableRow>
                             </CTableBody>
                         </CTable>
-                        {
-                            currentReview != null && viewVisible === true ?
-                                <CRow className='mt-5'>
-                                    <CCol xs={12} md={12} lg={12} xl={12}>
-                                        <textarea rows={5} value={updatingReview} onChange={(e) => setUpdatingReview(e.target.value)} style={{ width: "100%" }}>
-                                        </textarea>
-                                    </CCol>
-                                    <CCol xs={12} md={12} lg={12} xl={12}>
-                                        <CButton color="danger" variant="ghost">
-                                            Delete Review
-                                        </CButton>
-                                        {/* <CButton color="info" variant="ghost" onClick={() => alert(updatingReview)}>
-                                            Update Review
-                                        </CButton> */}
-                                        <CButton color="primary" variant="ghost" onClick={() => setCurrentReview(null)}>
-                                            Close Review
-                                        </CButton>
-                                    </CCol>
-                                </CRow> : null
-                        }
                     </div>
                 }
                 footer={

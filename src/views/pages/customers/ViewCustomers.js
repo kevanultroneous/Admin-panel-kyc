@@ -140,7 +140,7 @@ const ViewCustomer = () => {
                                             initialValue={detailsData?.data?.overallRating}
                                             allowFraction
                                             size={25}
-                                            emptyColor={"transparent"}
+                                            emptyColor={"#000"}
                                             readonly
                                         /></div>
                                     </CCol>
@@ -150,10 +150,7 @@ const ViewCustomer = () => {
                                     {
                                         detailsData?.data?.reviews?.length > 0 ?
                                             detailsData?.data?.reviews?.map((v, i) =>
-
                                                 v?.isActive == true ?
-
-
                                                     <CCol xl={4} key={i}>
                                                         <CRow className="CardOfReview">
                                                             <div className="DeleteBtnCover">

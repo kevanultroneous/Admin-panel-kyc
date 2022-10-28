@@ -27,7 +27,7 @@ export default function AlertBox({ visible, onClose, customTitle, customBody, cu
                             <CButton color={nocolor ? nocolor : "secondary"} onClick={onNo}>
                                 No
                             </CButton>
-                            <CButton color={yescolor ? yescolor : "warning"} onClick={onYes}>Yes , Delete</CButton>
+                            <CButton color={yescolor ? yescolor : "warning"} onClick={onYes}>Yes</CButton>
                         </>
                 }
             </CModalFooter>
