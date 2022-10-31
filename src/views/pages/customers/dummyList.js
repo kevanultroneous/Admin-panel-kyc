@@ -5,7 +5,7 @@ export const customerField = [
     'Email id',
     'Phone number',
     // 'Added By(service provider)',
-    'Action',
+    'Profile',
     'Block',
 ]
 export const viewCustomerField = [

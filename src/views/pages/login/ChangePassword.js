@@ -16,6 +16,8 @@ import {
 import './login.css'
 import { ChangePasswordApi } from 'src/api/api'
 import toast, { Toaster } from 'react-hot-toast'
+import CIcon from '@coreui/icons-react'
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 
 const ChangePassword = () => {
     const navigate = useNavigate()
@@ -27,6 +29,9 @@ const ChangePassword = () => {
     const [password, setPassword] = useState('')
     const [passwordNew, setPasswordNew] = useState('')
     const [passwordCopy, setPasswordCopy] = useState('')
+    const [passwordOneType, setPasswordOneType] = useState('password')
+    const [passwordTwoType, setPasswordTwoType] = useState('password')
+    const [passwordThreeType, setPasswordThreeType] = useState('password')
 
     const saveAction = () => {
         ChangePasswordApi({
@@ -63,33 +68,55 @@ const ChangePassword = () => {
                                             <CFormInput
                                                 value={password}
                                                 onChange={(e) => setPassword(e.target.value)}
-                                                type="password"
+                                                type={passwordOneType}
                                                 placeholder="Enter old password"
                                                 className='inputborder'
                                             />
+                                            <CButton className='shadow-none' type="button" color="info" variant="outline" id="button-addon2" onClick={() => {
+                                                passwordOneType === "password" ?
+                                                    setPasswordOneType("text")
+                                                    : setPasswordOneType("password")
+                                            }}>
+                                                {passwordOneType === "password" ? <AiFillEye /> : <AiFillEyeInvisible />}
 
+                                            </CButton>
                                         </CInputGroup>
                                         <CInputGroup className="mb-4">
                                             <CFormInput
                                                 value={passwordNew}
+                                                type={passwordTwoType}
                                                 onChange={(e) => setPasswordNew(e.target.value)}
-                                                type="password"
+
                                                 placeholder="Enter new password"
                                                 className='inputborder'
                                             />
+                                            <CButton className='shadow-none' type="button" color="info" variant="outline" id="button-addon2" onClick={() => {
+                                                passwordTwoType === "password" ?
+                                                    setPasswordTwoType("text")
+                                                    : setPasswordTwoType("password")
+                                            }}>
+                                                {passwordTwoType === "password" ? <AiFillEye /> : <AiFillEyeInvisible />}
+                                            </CButton>
                                         </CInputGroup>
                                         <CInputGroup className="mb-4">
                                             <CFormInput
                                                 value={passwordCopy}
+                                                type={passwordThreeType}
                                                 onChange={(e) => setPasswordCopy(e.target.value)}
-                                                type="password"
                                                 placeholder="Enter confirm password"
                                                 className='inputborder'
                                             />
+                                            <CButton className='shadow-none' type="button" color="info" variant="outline" id="button-addon2" onClick={() => {
+                                                passwordThreeType === "password" ?
+                                                    setPasswordThreeType("text")
+                                                    : setPasswordThreeType("password")
+                                            }}>
+                                                {passwordThreeType === "password" ? <AiFillEye /> : <AiFillEyeInvisible />}
+                                            </CButton>
                                         </CInputGroup>
                                         <CRow>
                                             <CCol xs={6}>
-                                                <CButton color="primary" className="px-4 loginbtn" onClick={saveAction}>
+                                                <CButton color="primary" className="px-4 loginbtn shadow-none" onClick={saveAction}>
                                                     Save
                                                 </CButton>
                                             </CCol>

@@ -16,6 +16,7 @@ export default function ServiceProvider() {
     const [visible, setVisible] = useState(false)
     const [titleOfModel, setTitleOfModel] = useState("Block")
     const [currentUser, setCurrentUser] = useState(null)
+    const [searchInput, setSearchInput] = useState("")
 
     const getMySP = () => {
         setLoader(true)
@@ -90,11 +91,20 @@ export default function ServiceProvider() {
 
             <CInputGroup className="mb-3">
                 <CFormInput
+                    value={searchInput}
+                    className='shadow-none'
                     placeholder="Search by Name or Email id or Phone number"
                     aria-label="Name or Email id or Phone number"
                     aria-describedby="button-addon2"
-                    onChange={(e) => callSearch(e.target.value.toString())}
+                    onChange={(e) => {
+                        callSearch(e.target.value)
+                        setSearchInput(e.target.value)
+                    }}
+
                 />
+                <CButton className='shadow-none' type="button" color="info" variant="outline" id="button-addon2" onClick={() => setSearchInput('')}>
+                    Clear
+                </CButton>
             </CInputGroup>
 
             <CTable align="middle" className="mb-0 border" hover responsive>

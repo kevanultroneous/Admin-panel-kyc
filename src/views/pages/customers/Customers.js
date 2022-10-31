@@ -32,6 +32,7 @@ export default function Customers() {
     const [updatingReview, setUpdatingReview] = useState("")
     const [currentUser, setCurrentUser] = useState(null)
     const [titleOfModel, setTitleOfModel] = useState("Block")
+    const [searchInput, setSearchInput] = useState("")
 
     useEffect(() => {
         getMyCustomer()
@@ -152,11 +153,17 @@ export default function Customers() {
 
             {/* Search bar */}
             <CInputGroup className="mb-3">
-                <CFormInput placeholder="Search by Name or Email id or Phone number"
-                    aria-label="Name or Email id or Phone number" aria-describedby="button-addon2" onChange={(e) => callSearch(e.target.value)} />
-                {/* <CButton type="button" color="info" variant="outline" id="button-addon2">
-                    <CIcon icon={cilSearch} />
-                </CButton> */}
+                <CFormInput
+                    className='shadow-none'
+                    placeholder="Search by Name or Email id or Phone number"
+                    value={searchInput}
+                    aria-label="Name or Email id or Phone number" aria-describedby="button-addon2" onChange={(e) => {
+                        callSearch(e.target.value)
+                        setSearchInput(e.target.value)
+                    }} />
+                <CButton className='shadow-none' type="button" color="info" variant="outline" id="button-addon2" onClick={() => setSearchInput("")}>
+                    Clear
+                </CButton>
             </CInputGroup>
 
             {/* Data table */}
@@ -188,7 +195,7 @@ export default function Customers() {
                                         </CTableDataCell>
 
                                         <CTableDataCell>
-                                            <Link to={{ pathname: "/view-customer" }} state={{ item: item._id }}>View in Details
+                                            <Link to={{ pathname: "/view-customer" }} state={{ item: item._id }}>View Profile
                                             </Link>
                                         </CTableDataCell>
                                         <CTableDataCell>

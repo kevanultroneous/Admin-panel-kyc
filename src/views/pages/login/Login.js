@@ -28,8 +28,8 @@ const Login = () => {
   const [otp, setOtp] = useState(false)
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
-  const [rPass1, setRpass1] = useState('')
-  const [rPass2, setRpass2] = useState('')
+  const [resetPassOne, setResetpassOne] = useState('')
+  const [resetPassTwo, setResetpassTwo] = useState('')
   const [femail, setfemail] = useState("")
   const [genToken, setGenToken] = useState("")
   const [otps, setOtps] = useState("")
@@ -98,12 +98,12 @@ const Login = () => {
 
   const finalResetPassword = () => {
     ResetPassoword({
-      newPassword: rPass1,
-      confirmPassword: rPass2
+      newPassword: resetPassOne,
+      confirmPassword: resetPassTwo
     }, genToken).then((r) => {
       if (r.data.data != null) {
-        setRpass1("")
-        setRpass2("")
+        setResetpassOne("")
+        setResetpassTwo("")
         setGenToken("")
         setVisibleReset(false)
         toast.success("Password Reset Successfully !")
@@ -133,24 +133,24 @@ const Login = () => {
             <CRow>
               <CCol md={12} >
                 <CFormInput
-                  value={rPass1}
-                  onChange={(e) => setRpass1(e.target.value)}
+                  value={resetPassOne}
+                  onChange={(e) => setResetpassOne(e.target.value)}
                   type="password"
                   placeholder="password"
-                  className='inputborder'
+                  className='inputborder shadow-none'
                 />
               </CCol>
               <CCol md={12} className="mt-2">
                 <CFormInput
-                  value={rPass2}
-                  onChange={(e) => setRpass2(e.target.value)}
+                  value={resetPassTwo}
+                  onChange={(e) => setResetpassTwo(e.target.value)}
                   type="password"
                   placeholder="Re-password"
-                  className='inputborder'
+                  className='inputborder shadow-none'
                 />
               </CCol>
               <CCol md={12} className="mt-2">
-                <CButton color="primary" className='loginbtn' onClick={finalResetPassword}>Reset Password</CButton>
+                <CButton color="primary" className='loginbtn shadow-none' onClick={finalResetPassword}>Reset Password</CButton>
               </CCol>
             </CRow>
           </CModalBody>
@@ -167,36 +167,35 @@ const Login = () => {
               {
                 !otp ?
                   <>
-                    <CCol md={8} >
+                    <CCol md={8} xs={12}>
                       <CFormInput
                         value={femail}
                         onChange={(e) => setfemail(e.target.value)}
                         type="email"
                         placeholder="Email"
-                        className='inputborder'
+                        className='inputborder shadow-none'
                       />
                     </CCol>
 
-                    <CCol md={4} >
-                      <CButton color="primary" className='loginbtn' onClick={fsubmitHandler}>Submit</CButton>
+                    <CCol md={4} xs={12} className="mt-3">
+                      <CButton color="primary" className='loginbtn shadow-none' onClick={fsubmitHandler}>Submit</CButton>
                     </CCol>
                   </>
                   :
                   <>
-                    <CCol xl={6}>
+                    <CCol xl={6} xs={12}>
                       <CFormInput
                         value={otps}
                         onChange={(e) => setOtps(e.target.value)}
                         type="text"
                         placeholder="OTP"
                         maxLength={4}
-                        className='inputborder'
+                        className='inputborder shadow-none'
                       />
                     </CCol>
-                    <CCol md={6} >
-                      <CButton color="primary" className='loginbtn' onClick={verify}>Verify</CButton>
+                    <CCol md={6} xs={12} className="mt-3">
+                      <CButton color="primary" className='loginbtn shadow-none' onClick={verify}>Verify</CButton>
                     </CCol>
-
                   </>
               }
             </CRow>
@@ -218,7 +217,7 @@ const Login = () => {
                           onChange={(e) => setUserName(e.target.value)}
                           type="email"
                           placeholder="Email"
-                          className='inputborder'
+                          className='inputborder shadow-none'
                         />
                       </CInputGroup>
                       <CInputGroup className="mb-4">
@@ -227,17 +226,17 @@ const Login = () => {
                           onChange={(e) => setPassword(e.target.value)}
                           type="password"
                           placeholder="Password"
-                          className='inputborder'
+                          className='inputborder shadow-none'
                         />
                       </CInputGroup>
                       <CRow className='mt-4'>
                         <CCol xs={12} xl={5} md={5} lg={5}>
-                          <CButton color="primary" className="px-4 loginbtn" onClick={loginAction} type='button'>
+                          <CButton color="primary" className="px-4 loginbtn shadow-none" onClick={loginAction} type='button'>
                             Login
                           </CButton>
                         </CCol>
                         <CCol xs={12} xl={7} md={7} lg={7} className="text-end">
-                          <CButton color="link" className="px-0 linkbtn" onClick={() => setVisible(true)}>
+                          <CButton color="link" className="px-0 linkbtn shadow-none" onClick={() => setVisible(true)}>
                             Forgot password?
                           </CButton>
                         </CCol>
