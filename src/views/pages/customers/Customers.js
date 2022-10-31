@@ -1,20 +1,13 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react/react-in-jsx-scope */
-import CIcon from '@coreui/icons-react'
 
-import { CButton, CCol, CFormInput, CFormSwitch, CInputGroup, CRow, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react'
+import { CButton, CFormInput, CFormSwitch, CInputGroup, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react'
 
-import {
-    cilTrash,
-    cilContact,
-    cilList
-} from '@coreui/icons'
 
 import { useEffect, useState } from 'react'
 import { customerSearch, getAllCustomer, setBlockOrUnblockUser } from 'src/api/api'
 import AlertBox from './AlertBox'
-import ViewModel from './ViewModel'
-import { customerField, viewCustomerField } from './dummyList'
+import { customerField } from './dummyList'
 import { NoData, SpinnerView } from './Nodata'
 import toast, { Toaster } from 'react-hot-toast'
 import { Link } from 'react-router-dom'
@@ -25,11 +18,6 @@ export default function Customers() {
     const [loader, setLoader] = useState(false)
     const [visible, setVisible] = useState(false)
     const [visible2, setVisible2] = useState(false)
-    const [visibleView, setVisibleView] = useState(false)
-    const [currentCustomer, setCurrentCustomer] = useState({})
-    const [currentReview, setCurrentReview] = useState(null)
-    const [viewVisible, setViewVisible] = useState(false)
-    const [updatingReview, setUpdatingReview] = useState("")
     const [currentUser, setCurrentUser] = useState(null)
     const [titleOfModel, setTitleOfModel] = useState("Block")
     const [searchInput, setSearchInput] = useState("")
@@ -65,12 +53,7 @@ export default function Customers() {
         }, 1000)
     }
 
-    const customerDetailHide = () => {
-        setViewVisible(false)
-        setUpdatingReview("")
-        setCurrentReview(null)
-        setVisibleView(false)
-    }
+
 
     const handleBlockUnblock = (e) => {
         setVisible2(true)
@@ -115,41 +98,6 @@ export default function Customers() {
                 onNo={() => setVisible2(false)}
                 onYes={() => callBlockAction({ userId: currentUser?._id, type: "customer" })} />
             <AlertBox visible={visible} onClose={() => setVisible(false)} onNo={() => setVisible(false)} onYes={() => null} />
-            <ViewModel
-                size={2}
-                onClose={() => customerDetailHide()}
-                visibleView={visibleView}
-                title={"Customer Details"}
-                body={
-                    <div>
-                        <CTable align="middle" className="mb-0 border" hover responsive>
-                            <CTableHead color="light">
-                                <CTableRow>
-                                    {viewCustomerField.map((v, i) => <CTableHeaderCell key={i}>{v}</CTableHeaderCell>)}
-                                </CTableRow>
-                            </CTableHead>
-                            <CTableBody>
-                                <CTableRow>
-                                    <CTableDataCell>
-                                        <div>{currentCustomer.name}</div>
-                                    </CTableDataCell>
-                                    <CTableDataCell >
-                                        <div>{currentCustomer.totalReviews}</div>
-                                    </CTableDataCell>
-                                    <CTableDataCell >
-                                        <div>{currentCustomer.overallRating}</div>
-                                    </CTableDataCell>
-                                </CTableRow>
-                            </CTableBody>
-                        </CTable>
-                    </div>
-                }
-                footer={
-                    <CButton color="danger" onClick={() => setVisibleView(false)}>
-                        close
-                    </CButton>
-                }
-            />
 
             {/* Search bar */}
             <CInputGroup className="mb-3">

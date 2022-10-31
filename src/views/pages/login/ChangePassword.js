@@ -16,7 +16,6 @@ import {
 import './login.css'
 import { ChangePasswordApi } from 'src/api/api'
 import toast, { Toaster } from 'react-hot-toast'
-import CIcon from '@coreui/icons-react'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 
 const ChangePassword = () => {

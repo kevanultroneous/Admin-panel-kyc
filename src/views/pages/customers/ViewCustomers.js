@@ -1,14 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable prettier/prettier */
 
-import { useLocation, useNavigate, useRoutes } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { cilArrowLeft } from "@coreui/icons"
-import { CCol, CRow, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from "@coreui/react";
+import { CCol, CRow, CTable } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
-import { useHistory } from "react-router-dom";
-import { viewCustomerDetail } from "./dummyList";
-import { MdDelete, MdDeleteForever } from "react-icons/md"
-import { AiFillStar } from "react-icons/ai"
+import { MdDeleteForever } from "react-icons/md"
 import "./ViewCustomer.css"
 import { Rating } from "react-simple-star-rating";
 import { useState } from "react";
@@ -150,7 +147,7 @@ const ViewCustomer = () => {
                                     {
                                         detailsData?.data?.reviews?.length > 0 ?
                                             detailsData?.data?.reviews?.map((v, i) =>
-                                                v?.isActive == true ?
+                                                v?.isActive === true ?
                                                     <CCol xl={4} key={i}>
                                                         <CRow className="CardOfReview">
                                                             <div className="DeleteBtnCover">
