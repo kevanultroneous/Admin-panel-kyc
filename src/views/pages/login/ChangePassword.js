@@ -71,11 +71,13 @@ const ChangePassword = () => {
                                                 placeholder="Enter old password"
                                                 className='inputborder'
                                             />
-                                            <CButton className='shadow-none' type="button" color="info" variant="outline" id="button-addon2" onClick={() => {
-                                                passwordOneType === "password" ?
-                                                    setPasswordOneType("text")
-                                                    : setPasswordOneType("password")
-                                            }}>
+                                            <CButton
+                                                style={{ background: "transparent", color: "#000", border: "1px solid #b1b7c1" }}
+                                                className='shadow-none' type="button" color="info" variant="outline" id="button-addon2" onClick={() => {
+                                                    passwordOneType === "password" ?
+                                                        setPasswordOneType("text")
+                                                        : setPasswordOneType("password")
+                                                }}>
                                                 {passwordOneType === "password" ? <AiFillEye /> : <AiFillEyeInvisible />}
 
                                             </CButton>
@@ -89,11 +91,14 @@ const ChangePassword = () => {
                                                 placeholder="Enter new password"
                                                 className='inputborder'
                                             />
-                                            <CButton className='shadow-none' type="button" color="info" variant="outline" id="button-addon2" onClick={() => {
-                                                passwordTwoType === "password" ?
-                                                    setPasswordTwoType("text")
-                                                    : setPasswordTwoType("password")
-                                            }}>
+                                            <CButton
+                                                style={{ background: "transparent", color: "#000", border: "1px solid #b1b7c1" }}
+
+                                                className='shadow-none' type="button" color="info" variant="outline" id="button-addon2" onClick={() => {
+                                                    passwordTwoType === "password" ?
+                                                        setPasswordTwoType("text")
+                                                        : setPasswordTwoType("password")
+                                                }}>
                                                 {passwordTwoType === "password" ? <AiFillEye /> : <AiFillEyeInvisible />}
                                             </CButton>
                                         </CInputGroup>
@@ -105,11 +110,13 @@ const ChangePassword = () => {
                                                 placeholder="Enter confirm password"
                                                 className='inputborder'
                                             />
-                                            <CButton className='shadow-none' type="button" color="info" variant="outline" id="button-addon2" onClick={() => {
-                                                passwordThreeType === "password" ?
-                                                    setPasswordThreeType("text")
-                                                    : setPasswordThreeType("password")
-                                            }}>
+                                            <CButton
+                                                style={{ background: "transparent", color: "#000", border: "1px solid #b1b7c1" }}
+                                                className='shadow-none' type="button" color="info" variant="outline" id="button-addon2" onClick={() => {
+                                                    passwordThreeType === "password" ?
+                                                        setPasswordThreeType("text")
+                                                        : setPasswordThreeType("password")
+                                                }}>
                                                 {passwordThreeType === "password" ? <AiFillEye /> : <AiFillEyeInvisible />}
                                             </CButton>
                                         </CInputGroup>

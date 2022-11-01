@@ -3,7 +3,7 @@
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { cilArrowLeft } from "@coreui/icons"
-import { CCol, CRow, CTable } from "@coreui/react";
+import { CCol, CRow } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { MdDeleteForever } from "react-icons/md"
 import "./ViewCustomer.css"
@@ -81,46 +81,6 @@ const ViewCustomer = () => {
                     {
                         detailsData != null ?
                             <>
-                                <CTable align="middle" className="mb-0 border" hover responsive style={{ border: "none !important" }}>
-                                    {/* <CTableHead >
-                                        <CTableRow >
-                                            <CTableHeaderCell colSpan={viewCustomerDetail.length}>
-                                                <CIcon icon={cilArrowLeft} color="#000" height={30} onClick={() => navigate('/customers')} />
-                                            </CTableHeaderCell>
-                                        </CTableRow>
-                                        <CTableRow >
-                                            {viewCustomerDetail.map((value, index) =>
-                                                <CTableHeaderCell key={index} className="text-center">
-                                                    {value}
-                                                </CTableHeaderCell>)}
-                                        </CTableRow>
-
-                                    </CTableHead> */}
-                                    {/* <CTableBody >
-                                        {
-                                            detailsData != null ?
-                                                <CTableRow v-for="item in tableItems" >
-                                                    <CTableDataCell className="text-center">
-                                                        <div>{detailsData?.data?.name}</div>
-                                                    </CTableDataCell >
-                                                    <CTableDataCell className="text-center">
-                                                        <div>{detailsData?.data?.totalReviews}</div>
-                                                    </CTableDataCell>
-
-                                                    <CTableDataCell className="text-center">
-                                                        <div><Rating
-                                                            iconsCount={5}
-                                                            initialValue={detailsData?.data?.overallRating}
-                                                            allowFraction
-                                                            size={20}
-                                                            readonly
-                                                        /></div>
-                                                    </CTableDataCell>
-                                                </CTableRow> :
-                                                <NoData />
-                                        }
-                                    </CTableBody> */}
-                                </CTable>
                                 <CRow className="BigCard">
                                     <CCol xl={12}>
                                         <CIcon icon={cilArrowLeft} color="#000" height={30} onClick={() => navigate('/customers')} />
@@ -141,8 +101,8 @@ const ViewCustomer = () => {
                                             readonly
                                         /></div>
                                     </CCol>
-
                                 </CRow>
+
                                 <CRow className="mt-5">
                                     {
                                         detailsData?.data?.reviews?.length > 0 ?
@@ -150,14 +110,42 @@ const ViewCustomer = () => {
                                                 v?.isActive === true ?
                                                     <CCol xl={4} key={i}>
                                                         <CRow className="CardOfReview">
-                                                            <div className="DeleteBtnCover">
-                                                                <CCol xl={12} className="DeleteBtn" onClick={() => {
-                                                                    setVisible(true)
-                                                                    setCurrentId(v?._id)
-                                                                }}><MdDeleteForever /></CCol>
-                                                            </div>
-                                                            <CCol xl={12} className="SPtext">{v.serviceProviderId?.name}</CCol>
-                                                            <CCol xl={12} className="ReviewText">
+
+                                                            <CRow>
+                                                                <CCol xl={6} className="d-flex align-items-center">
+                                                                    <CRow>
+                                                                        <CCol className="d-flex align-items-center">
+                                                                            <div className="SPtext p-0">{v.serviceProviderId?.name}</div><br />
+                                                                        </CCol>
+                                                                        <CCol>
+                                                                            <Rating
+                                                                                iconsCount={5}
+                                                                                initialValue={v.overallRating}
+                                                                                allowFraction
+                                                                                size={20}
+                                                                                emptyColor={"#000"}
+                                                                                readonly
+                                                                            />
+                                                                        </CCol>
+                                                                    </CRow>
+                                                                </CCol>
+                                                                <CCol xl={6}>
+                                                                    <div className="DeleteBtnCover">
+                                                                        <CCol xl={12} className="DeleteBtn" onClick={() => {
+                                                                            setVisible(true)
+                                                                            setCurrentId(v?._id)
+                                                                        }}>
+                                                                            <MdDeleteForever />
+                                                                        </CCol>
+                                                                    </div>
+                                                                </CCol>
+                                                                <CCol>
+                                                                </CCol>
+                                                            </CRow>
+                                                            <CCol xl={12}>
+                                                                <div></div>
+                                                            </CCol>
+                                                            <CCol xl={12} className="ReviewText mt-3">
                                                                 {v.review}
                                                             </CCol>
                                                         </CRow>

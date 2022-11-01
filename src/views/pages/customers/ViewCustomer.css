@@ -77,10 +77,10 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #DD5353;
+    background: #fff;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #DD5353;
+    background: #fff;
 }
