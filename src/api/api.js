@@ -50,7 +50,7 @@ export const viewInDetailCustomer = (id) => {
     })
 }
 export const deleteReview = (id) => {
-    return axios.post(`${api_link}api/serviceprovider/deleteReview`, { id: id }, {
+    return axios.post(`${api_link}api/admin/deleteReview`, { id: id }, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
     })
 }
