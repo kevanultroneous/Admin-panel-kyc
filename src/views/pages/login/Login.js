@@ -36,7 +36,7 @@ const Login = () => {
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      navigate('/customers')
+      navigate('/')
     }
   })
 
@@ -52,7 +52,7 @@ const Login = () => {
         if (r.data.data != null && (r.data.token !== null || r.data.token !== "")) {
           toast.success("Login successfully !")
           localStorage.setItem('token', r.data.token)
-          navigate('/customers')
+          navigate('/')
         }
       }).catch((e) => {
         if (e.response) {
