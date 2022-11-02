@@ -1,0 +1,19 @@
+.CardOfReview {
+    padding: 3rem 1.5rem 3rem 2rem;
+    border-radius: 20px;
+    background-color: #1273EB;
+    transition: all 1s ease;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    margin-right: 1rem;
+    text-align: center;
+    display: flex;
+    color: #fff;
+    font-size: 20px;
+    justify-content: center;
+}
+
+.CardOfReview:hover {
+    box-shadow: -12px 24px 58px -16px #323232;
+    transition: all 1s ease;
+}

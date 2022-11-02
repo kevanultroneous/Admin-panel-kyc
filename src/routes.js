@@ -54,7 +54,7 @@ const CoreUIIcons = React.lazy(() => import('./views/icons/coreui-icons/CoreUIIc
 // const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
 const routes = [
-  { path: '/', exact: true, name: 'Home', element: Customers },
+  { path: '/', exact: true, name: '', element: Dashboard },
   // { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/customers', name: 'Customers', element: Customers },
   { path: '/service-providers', name: 'ServiceProvider', element: ServiceProvider },
